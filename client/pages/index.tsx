@@ -1,15 +1,8 @@
 import React from 'react';
+import LandingPage from '../components/landing-page/LandingPage';
 
-export interface IndexProps {
-  
-}
- 
-const Index: React.FC<IndexProps> = () => {
-  return (
-    <div>
-      hello
-    </div>
-  );
-}
- 
+const Index = () => {
+  return <LandingPage />;
+};
+
 export default Index;

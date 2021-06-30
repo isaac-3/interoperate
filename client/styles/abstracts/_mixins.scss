@@ -1,0 +1,16 @@
+@mixin card {
+    border-radius: 6px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+};
+
+@mixin button ($color, $width, $height) {
+    border-radius: 6px;
+    background-color: $color;
+    width: $width;
+    height: $height;
+    
+    &:hover {
+        cursor: pointer;
+        filter: brightness(1.5);
+    }
+}
