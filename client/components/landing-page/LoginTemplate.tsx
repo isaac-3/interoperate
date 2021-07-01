@@ -18,9 +18,7 @@ const LoginTemplate = () => {
         error={usernameError}
         handleChange={usernameChange}
         handleUpdate={usernameUpdate}
-      >
-        <div>test node</div>
-      </FormInput>
+      />
       <FormInput
         type="password"
         placeholder="password"
