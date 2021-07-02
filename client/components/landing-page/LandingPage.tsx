@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../lib/rootReducer';
 import NavBar from '../layout/NavBar';
+import Modal from '../modal/Modal';
 import HomeCard from './HomeCard';
 
 const LandingPage = () => {
@@ -13,6 +14,7 @@ const LandingPage = () => {
     <div className="landing-page">
       <NavBar setPromptType={(type) => setPromptType(type)} />
       <HomeCard promptType={promptType} />
+      <Modal />
     </div>
   );
 };
