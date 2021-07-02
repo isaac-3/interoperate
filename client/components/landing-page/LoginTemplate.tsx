@@ -1,23 +1,31 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useForm } from '../../lib/hooks';
+import FormInput from '../util/FormInput';
 
 const LoginTemplate = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [usernameValue, usernameError, usernameChange, usernameUpdate] =
+    useForm("username");
+  const [passwordValue, passwordError, passwordChange, passwordUpdate] =
+    useForm("password");
 
   return (
     <div className="login-template">
       <h3>Login here</h3>
-      <input
+      <FormInput
         type="text"
         placeholder="username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={usernameValue}
+        error={usernameError}
+        handleChange={usernameChange}
+        handleUpdate={usernameUpdate}
       />
-      <input
+      <FormInput
         type="password"
         placeholder="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        value={passwordValue}
+        error={passwordError}
+        handleChange={passwordChange}
+        handleUpdate={passwordUpdate}
       />
       <div>Submit</div>
     </div>
