@@ -5,7 +5,11 @@ import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
 import DefocusWrapper from '../util/DefocusWrapper';
 import FormInput from '../util/FormInput';
 
-const SignupTemplate = () => {
+interface Props {
+  defocus: boolean;
+}
+
+const SignupTemplate = ({ defocus } : Props) => {
   const dispatch = useDispatch();
 
   const [usernameValue, usernameError, usernameChange, usernameUpdate] =
@@ -19,8 +23,10 @@ const SignupTemplate = () => {
     <DefocusWrapper
       className="login-template"
       callBack={() => {
-        dispatch(setModalDisplay());
-        dispatch(setModalType(""));
+        if (defocus) {
+          dispatch(setModalDisplay());
+          dispatch(setModalType(""));
+        }
       }}
     >
       <h3>Signup here</h3>
