@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { modalDisplay, setModalType } from '../../lib/slices/modalSlice';
+import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
 
 const NavBar = () => {
   const dispatch = useDispatch();
   const [authed, setAuthed] = useState(false);
 
   const handlePromptType = (type: string) => {
-    dispatch(modalDisplay());
+    dispatch(setModalDisplay());
     dispatch(setModalType(type));
   };
 
