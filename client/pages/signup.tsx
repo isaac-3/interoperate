@@ -2,7 +2,11 @@ import React from 'react';
 import SignupTemplate from '../components/landing-page/SignupTemplate';
 
 const Login = () => {
-  return <SignupTemplate defocus={false} />;
+  return (
+    <div className="initial-page">
+      <SignupTemplate defocus={false} />
+    </div>
+  );
 };
 
 export default Login;
