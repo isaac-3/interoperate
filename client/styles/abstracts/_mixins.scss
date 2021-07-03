@@ -14,3 +14,9 @@
         filter: brightness(1.5);
     }
 }
+
+@mixin centerInner {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}

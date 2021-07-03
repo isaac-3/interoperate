@@ -4,17 +4,7 @@
     background-color: lightblue;
     width: 100vw;
     height: 100vh;
-
     display: flex;
-  }
-
-  .home-card {
-    @include card;
-
-    background: lightcoral;
-    width: 400px;
-    height: 500px;
-    margin: auto;
   }
 
   .login {
