@@ -19,12 +19,11 @@ const LoginTemplate = ({ defocus }: Props) => {
 
   return (
     <DefocusWrapper
+      defocus={defocus}
       className="login-template"
       callBack={() => {
-        if (defocus) {
-          dispatch(setModalDisplay());
-          dispatch(setModalType(""));
-        }
+        dispatch(setModalDisplay());
+        dispatch(setModalType(""));
       }}
     >
       <h3>Login here</h3>

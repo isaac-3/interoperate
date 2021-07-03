@@ -2,24 +2,28 @@ import React, { useEffect, useRef } from 'react';
 
 interface Props {
   children: React.ReactNode;
+  defocus: boolean;
   className: string;
   callBack: Function;
 }
 
-const DefocusWrapper = ({ children, className, callBack }: Props) => {
+const DefocusWrapper = ({ children, defocus, className, callBack }: Props) => {
   const defocusWrapper = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (!defocusWrapper.current?.contains(e["target"] as Node)) {
-        console.log("iccccc");
         callBack();
       }
     };
 
-    document.addEventListener("click", handleClick);
+    if (defocus) {
+      document.addEventListener("click", handleClick);
+    }
 
     return () => {
-      document.removeEventListener("click", handleClick);
+      if (defocus) {
+        document.removeEventListener("click", handleClick);
+      }
     };
   }, []);
 
