@@ -1,25 +1,29 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { modalDisplay, setModalType } from '../../lib/slices/modalSlice';
 
-interface Props {
-  setPromptType: (type: string) => void;
-}
-
-const NavBar = ({ setPromptType }: Props) => {
+const NavBar = () => {
+  const dispatch = useDispatch();
   const [authed, setAuthed] = useState(false);
+
+  const handlePromptType = (type: string) => {
+    dispatch(modalDisplay());
+    dispatch(setModalType(type));
+  };
 
   return (
     <div className="nav-bar">
       {authed ? (
-        <div>Not Authed User</div>
+        <div>Authed User</div>
       ) : (
-        <div>
-          <div className="login" onClick={() => setPromptType("login")}>
+        <>
+          <div className="login" onClick={() => handlePromptType("login")}>
             Login
           </div>
-          <div className="signup" onClick={() => setPromptType("signup")}>
+          <div className="signup" onClick={() => handlePromptType("signup")}>
             Sign Up
           </div>
-        </div>
+        </>
       )}
     </div>
   );

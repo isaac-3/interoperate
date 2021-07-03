@@ -1,0 +1,11 @@
+@import '../abstracts/mixins';
+
+.modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: brightness(0.7);
+    @include centerInner();
+}
