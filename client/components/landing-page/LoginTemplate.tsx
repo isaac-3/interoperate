@@ -1,17 +1,34 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from '../../lib/hooks';
+import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
+import DefocusWrapper from '../util/DefocusWrapper';
 import FormInput from '../util/FormInput';
 
-const LoginTemplate = () => {
+interface Props {
+  defocus: boolean;
+}
+
+const LoginTemplate = ({ defocus }: Props) => {
+  const dispatch = useDispatch();
+
   const [usernameValue, usernameError, usernameChange, usernameUpdate] =
     useForm("username");
   const [passwordValue, passwordError, passwordChange, passwordUpdate] =
     useForm("password");
 
   return (
-    <div className="login-template">
+    <DefocusWrapper
+      defocus={defocus}
+      className="login-template"
+      callBack={() => {
+        dispatch(setModalDisplay());
+        dispatch(setModalType(""));
+      }}
+    >
       <h3>Login here</h3>
       <FormInput
+        className="input-validation"
         type="text"
         placeholder="username"
         value={usernameValue}
@@ -20,6 +37,7 @@ const LoginTemplate = () => {
         handleUpdate={usernameUpdate}
       />
       <FormInput
+        className="input-validation"
         type="password"
         placeholder="password"
         value={passwordValue}
@@ -28,7 +46,7 @@ const LoginTemplate = () => {
         handleUpdate={passwordUpdate}
       />
       <div>Submit</div>
-    </div>
+    </DefocusWrapper>
   );
 };
 

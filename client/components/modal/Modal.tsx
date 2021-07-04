@@ -12,9 +12,9 @@ const Modal = () => {
   const renderModal = () => {
     switch (modalType) {
       case "login":
-        return <LoginTemplate />;
+        return <LoginTemplate defocus={true} />;
       case "signup":
-        return <SignupTemplate />;
+        return <SignupTemplate defocus={true} />;
       case "":
         return null;
     }

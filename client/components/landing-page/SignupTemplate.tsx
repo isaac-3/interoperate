@@ -1,8 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useForm } from '../../lib/hooks';
+import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
+import DefocusWrapper from '../util/DefocusWrapper';
 import FormInput from '../util/FormInput';
 
-const SignupTemplate = () => {
+interface Props {
+  defocus: boolean;
+}
+
+const SignupTemplate = ({ defocus } : Props) => {
+  const dispatch = useDispatch();
+
   const [usernameValue, usernameError, usernameChange, usernameUpdate] =
     useForm("username");
   const [emailValue, emailError, emailChange, emailUpdate] =
@@ -11,9 +20,17 @@ const SignupTemplate = () => {
     useForm("password");
 
   return (
-    <div className="login-template">
+    <DefocusWrapper
+      defocus={defocus}
+      className="login-template"
+      callBack={() => {
+        dispatch(setModalDisplay());
+        dispatch(setModalType(""));
+      }}
+    >
       <h3>Signup here</h3>
       <FormInput
+        className="input-validation"
         type="text"
         placeholder="username"
         value={usernameValue}
@@ -22,6 +39,7 @@ const SignupTemplate = () => {
         handleUpdate={usernameUpdate}
       />
       <FormInput
+        className="input-validation"
         type="text"
         placeholder="email"
         value={emailValue}
@@ -30,6 +48,7 @@ const SignupTemplate = () => {
         handleUpdate={emailUpdate}
       />
       <FormInput
+        className="input-validation"
         type="password"
         placeholder="password"
         value={passwordValue}
@@ -38,7 +57,7 @@ const SignupTemplate = () => {
         handleUpdate={passwordUpdate}
       />
       <div>Submit</div>
-    </div>
+    </DefocusWrapper>
   );
 };
 
