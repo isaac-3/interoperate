@@ -1,4 +1,4 @@
-@import '../abstracts/mixins';
+@use '../abstracts' as *;
 
 .landing-page  {
     background-color: lightblue;

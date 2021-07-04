@@ -1,4 +1,4 @@
-@import '../abstracts/mixins';
+@use '../abstracts' as *;
 
 .modal {
     position: absolute;

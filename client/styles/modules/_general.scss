@@ -1,4 +1,4 @@
-@import '../abstracts//mixins';
+@use '../abstracts' as *;
 
 .initial-page {
     width: 100vw;
@@ -10,12 +10,12 @@
     @include input-style(90%, 30px);
 
     &[data-valid=false]  {
-		@include outline(red);
+		@include outline($error-coler);
 	}
 
     &:focus {
 		&[data-valid=false]  {
-			@include outline(red);
+			@include outline($error-coler);
 		}
 		&[data-valid=true]  {
 			@include outline(green);
