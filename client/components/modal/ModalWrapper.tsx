@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from '../layout/NavBar';
 import Modal from './Modal';
 
 interface Props {
@@ -8,6 +9,7 @@ interface Props {
 const ModalWrapper = ({ children }: Props) => {
   return (
     <>
+      <NavBar />
       {children}
       <Modal />
     </>

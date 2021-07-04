@@ -1,24 +1,32 @@
 @use '../abstracts' as *;
 
-.initial-page {
+.credentials-page {
     width: 100vw;
     height: 100vh;
     @include centerInner();
+	background-color: $backgroud;
+}
+
+.initial-page {
+    width: 100vw;
+    height: 94vh;
+    @include centerInner();
+	background-color: $backgroud;
 }
 
 .input-validation {
     @include input-style(90%, 30px);
 
     &[data-valid=false]  {
-		@include outline($error-coler);
+		@include outline($error-color);
 	}
 
     &:focus {
 		&[data-valid=false]  {
-			@include outline($error-coler);
+			@include outline($error-color);
 		}
 		&[data-valid=true]  {
-			@include outline(green);
+			@include outline($valid-color);
 		}
 	}
 }
