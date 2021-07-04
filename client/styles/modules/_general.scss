@@ -1,9 +1,17 @@
 @use '../abstracts' as *;
 
-.initial-page {
+.credentials-page {
     width: 100vw;
     height: 100vh;
     @include centerInner();
+	background-color: $backgroud;
+}
+
+.initial-page {
+    width: 100vw;
+    height: 94vh;
+    @include centerInner();
+	background-color: $backgroud;
 }
 
 .input-validation {

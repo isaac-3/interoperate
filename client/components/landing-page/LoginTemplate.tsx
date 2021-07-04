@@ -20,7 +20,7 @@ const LoginTemplate = ({ defocus }: Props) => {
   return (
     <DefocusWrapper
       defocus={defocus}
-      className="login-template"
+      className="credentials-card"
       callBack={() => {
         dispatch(setModalDisplay());
         dispatch(setModalType(""));
@@ -45,7 +45,9 @@ const LoginTemplate = ({ defocus }: Props) => {
         handleChange={passwordChange}
         handleUpdate={passwordUpdate}
       />
-      <div>Submit</div>
+      <div className="credentials-card-button">
+        Submit
+      </div>
     </DefocusWrapper>
   );
 };

@@ -12,6 +12,11 @@
         &:hover {
             background-color: map.get(v.$primary-button, "hover");;
         }
+    } @else if $theme-color == "action" {
+        background-color: map.get(v.$action-button, "regular");
+        &:hover {
+            background-color: map.get(v.$action-button, "hover");;
+        }
     }
 }
 
