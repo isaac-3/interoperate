@@ -30,6 +30,7 @@ const SignupTemplate = ({ defocus } : Props) => {
     >
       <h3>Signup here</h3>
       <FormInput
+        className="input-validation"
         type="text"
         placeholder="username"
         value={usernameValue}
@@ -38,6 +39,7 @@ const SignupTemplate = ({ defocus } : Props) => {
         handleUpdate={usernameUpdate}
       />
       <FormInput
+        className="input-validation"
         type="text"
         placeholder="email"
         value={emailValue}
@@ -46,6 +48,7 @@ const SignupTemplate = ({ defocus } : Props) => {
         handleUpdate={emailUpdate}
       />
       <FormInput
+        className="input-validation"
         type="password"
         placeholder="password"
         value={passwordValue}

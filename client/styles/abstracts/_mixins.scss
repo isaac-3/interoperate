@@ -27,3 +27,15 @@
     justify-content: space-around;
     align-items: center;
 }
+
+@mixin outline($color) {
+    box-shadow: 0 0 0px 2px $color;
+}
+
+@mixin input-style($width, $height) {
+    width: $width;
+    height: $height;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+}

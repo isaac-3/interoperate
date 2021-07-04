@@ -5,3 +5,26 @@
     height: 100vh;
     @include centerInner();
 }
+
+.input-validation {
+    @include input-style(90%, 30px);
+
+    &[data-valid=false]  {
+		@include outline(red);
+	}
+
+    &:focus {
+		&[data-valid=false]  {
+			@include outline(red);
+		}
+		&[data-valid=true]  {
+			@include outline(green);
+		}
+	}
+}
+
+.error-message {
+	font-size: 13px;
+	margin: 4px 0;
+	height: 16px;
+}

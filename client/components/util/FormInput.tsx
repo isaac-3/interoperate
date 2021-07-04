@@ -2,6 +2,7 @@ import React from 'react';
 
 interface Props {
   children?: React.ReactNode;
+  className: string;
   type: string;
   placeholder: string;
   value: string;
@@ -12,6 +13,7 @@ interface Props {
 
 const FormInput = ({
   children,
+  className,
   type,
   placeholder,
   value,
@@ -22,14 +24,16 @@ const FormInput = ({
   return (
     <>
       <input
+        className={className}
         type={type}
         placeholder={placeholder}
         value={value}
         onChange={(e) => handleChange(e.target.value)}
         onBlur={() => handleUpdate()}
+        data-valid={error.length === 0}
       />
       {children}
-      {error && <div>{error}</div>}
+      <div className="error-message">{error}</div>
     </>
   );
 };
