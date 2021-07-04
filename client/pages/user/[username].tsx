@@ -3,10 +3,10 @@ import React from 'react';
 
 interface Props {}
 
-const username = (props: Props) => {
+const Username = (props: Props) => {
   const router = useRouter();
 
   return <div>username</div>;
 };
 
-export default username;
+export default Username;
