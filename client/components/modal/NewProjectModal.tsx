@@ -30,7 +30,6 @@ const NewProjectModal = () => {
 
   return (
     <DefocusWrapper
-      defocus
       className="modal-new-project"
       callBack={() => {
         dispatch(setModalDisplay());

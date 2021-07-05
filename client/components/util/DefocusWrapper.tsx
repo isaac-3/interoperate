@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from 'react';
 
 interface Props {
   children: React.ReactNode;
-  defocus: boolean;
+  defocus?: boolean;
   className: string;
   callBack: Function;
 }
 
-const DefocusWrapper = ({ children, defocus, className, callBack }: Props) => {
+const DefocusWrapper = ({ children, defocus = true, className, callBack }: Props) => {
   const defocusWrapper = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
