@@ -20,6 +20,16 @@
     }
 }
 
+@mixin card-theme($theme-color) {
+    @if $theme-color == "new" {
+        background-color: map.get(v.$new-tile, "regular");
+        &:hover {
+            background-color: map.get(v.$new-tile, "hover");;
+        }
+    }
+    @include card();
+}
+
 @mixin card-style($color, $width, $height) {
     background-color: $color;
     width: $width;
