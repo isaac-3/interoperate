@@ -11,8 +11,10 @@ export const useForm = (type: string) => {
     setError(validateData(value, type));
   };
 
-  const handleUpdate = () => {
-    setError(validateData(value, type));
+  const handleUpdate = (): boolean => {
+    const err = validateData(value, type);
+    setError(err);
+    return err.length === 0;
   };
 
   return [value, error, handleChange, handleUpdate] as const;

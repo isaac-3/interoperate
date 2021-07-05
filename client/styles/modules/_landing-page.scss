@@ -16,9 +16,7 @@
 }
   
 .credentials-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    @include center-vertically();
     color: $dark-text-color;
     @include card-style($card-color, 400px, 500px);
 }
