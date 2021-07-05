@@ -1,0 +1,53 @@
+@use '../abstracts' as *;
+
+.project-page-container {
+    height: 100%;
+    width: 70%;
+    
+    h3 {
+        color: $dark-text-color;
+        margin-left: 8px
+    }
+}
+
+.project-holder {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.project-tile {
+    @include card-style($card-color, 200px, 100px);
+    margin: 8px;
+
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    &[data-exsisting=true] {
+        p {
+            margin: 8px 0 0 8px;
+            padding: 2px 4px;
+            background-color: $valid-color;
+            border-radius: 6px;
+            width: fit-content;
+        }
+    }
+
+    &[data-exsisting=false] {
+        @include card-theme("new");
+        display: flex;
+        p {
+            margin: auto;
+        }
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    p {
+        font-size: 14px;
+        font-weight: 500;
+        color: $dark-text-color;
+    }
+}
