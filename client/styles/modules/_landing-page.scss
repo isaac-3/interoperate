@@ -1,31 +1,30 @@
 @use '../abstracts' as *;
 
 .landing-page  {
+    @include centerInner();
     background-color: $backgroud;
     width: 100vw;
     height: 94vh;
     display: flex;
-    @include centerInner();
 }
 
 .nav-bar-button {
-    color: $dark-text-color;
     @include button(fit-content, fit-content, "primary");
+    color: $dark-text-color;
     padding: 4px 8px;
     margin: 0 4px;
 }
   
 .credentials-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: $dark-text-color;
+    @include center-vertically();
     @include card-style($card-color, 400px, 500px);
+    @include card("regular");
+    color: $dark-text-color;
 }
 
 .credentials-card-button {
-    color: $text-color;
     @include button(fit-content, fit-content, "action");
+    color: $text-color;
     padding: 4px 12px;
     margin: auto 0 32px 0;;
 }

@@ -1,3 +1,4 @@
+@use "sass:map";
 @use '../abstracts' as *;
 
 .credentials-page {
@@ -35,4 +36,15 @@
 	font-size: 13px;
 	margin: 4px 0;
 	height: 16px;
+}
+
+.initial-icon {
+	color: map.get($icon-button, "regular");
+	border-radius: 6px;
+
+	&:hover {
+		color: map.get($icon-button, "regular-hover");
+		background-color: map.get($icon-button, "hover");
+		cursor: pointer;
+	}
 }

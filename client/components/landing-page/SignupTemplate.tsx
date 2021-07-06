@@ -19,6 +19,19 @@ const SignupTemplate = ({ defocus } : Props) => {
   const [passwordValue, passwordError, passwordChange, passwordUpdate] =
     useForm("password");
 
+  const handleSubmit = () => {
+    // Runs every validaton function:
+    // [usernameUpdate, passwordUpdate].forEach((f) => f());
+    const res = passValidations();
+    if (res) console.log("Ready to submit!");
+  };
+
+  const passValidations = () => {
+    return [usernameUpdate, emailUpdate, passwordUpdate].every((x) => {
+      return x().valueOf();
+    });
+  };
+
   return (
     <DefocusWrapper
       defocus={defocus}
@@ -56,7 +69,7 @@ const SignupTemplate = ({ defocus } : Props) => {
         handleChange={passwordChange}
         handleUpdate={passwordUpdate}
       />
-      <div className="credentials-card-button">
+      <div className="credentials-card-button" onClick={() => handleSubmit()}>
         Submit
       </div>
     </DefocusWrapper>

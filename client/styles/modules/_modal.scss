@@ -9,3 +9,10 @@
     backdrop-filter: brightness(0.7);
     @include centerInner();
 }
+
+.modal-new-project {
+    @include center-vertically();
+    @include card-style($card-color, 400px, 250px);
+    @include card("regular");
+    color: $dark-text-color;
+}

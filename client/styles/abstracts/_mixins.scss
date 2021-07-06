@@ -1,9 +1,11 @@
 @use "sass:map";
 @use 'variables' as v;
 
-@mixin card {
+@mixin card($shadow-weight) {
     border-radius: 6px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    @if $shadow-weight != "none" {
+        box-shadow: map.get(v.$card-shadow, $shadow-weight);
+    }
 };
 
 @mixin button-theme($theme-color) {
@@ -26,15 +28,18 @@
         &:hover {
             background-color: map.get(v.$new-tile, "hover");;
         }
+    } @else if $theme-color == "card" {
+        background-color: map.get(v.$card-tile, "regular");
+        &:hover {
+            background-color: map.get(v.$card-tile, "hover");;
+        }
     }
-    @include card();
 }
 
 @mixin card-style($color, $width, $height) {
     background-color: $color;
     width: $width;
     height: $height;
-    @include card();
 };
 
 @mixin button ($width, $height, $theme-color) {
@@ -65,4 +70,10 @@
     border: none;
     outline: none;
     border-radius: 6px;
+}
+
+@mixin center-vertically {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

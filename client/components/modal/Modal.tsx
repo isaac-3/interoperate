@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../lib/rootReducer';
 import LoginTemplate from '../landing-page/LoginTemplate';
 import SignupTemplate from '../landing-page/SignupTemplate';
+import NewProjectModal from './NewProjectModal';
 
 const Modal = () => {
   const { modalDisplay, modalType } = useSelector(
@@ -15,6 +16,8 @@ const Modal = () => {
         return <LoginTemplate defocus={true} />;
       case "signup":
         return <SignupTemplate defocus={true} />;
+      case "new-project":
+        return <NewProjectModal />;
       case "":
         return null;
     }

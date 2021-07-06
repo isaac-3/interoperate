@@ -31,7 +31,6 @@ const Projects = () => {
           {dummyData.map((d) => (
             <ProjectTile key={d} name={d} exsisting />
           ))}
-          <ProjectTile name="Create New Board" exsisting={false} />
         </div>
       </div>
     </div>

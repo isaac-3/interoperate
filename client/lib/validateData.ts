@@ -25,6 +25,15 @@ const validateData = (value: string, type: string): string => {
         error = "Email address is invalid";
       }
       break;
+    case "new-project":
+      if (!value.trim()) {
+        error = "Project name is required";
+        break;
+      }
+      if (value.trim().length < 4) {
+        error = "Project name needs to be 4 characters or more";
+      }
+      break;
   }
 
   return error;
