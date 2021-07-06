@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import consts from '../../lib/data';
@@ -10,10 +11,14 @@ interface Props {
 
 const ProjectTile = ({ name, exsisting }: Props) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
-  const handleBoardClick = () => {
+  const handleBoardClick = (name: string) => {
     if (exsisting) {
-      console.log("Redirect to project page");
+      router.push({
+        pathname: "/p/[projectID]",
+        query: { projectID: name },
+      });
     } else {
       dispatch(setModalType("new-project"));
       dispatch(setModalDisplay());
@@ -26,7 +31,7 @@ const ProjectTile = ({ name, exsisting }: Props) => {
       style={{
         backgroundImage: exsisting ? `url(${consts["TEMP_IMG"]})` : undefined,
       }}
-      onClick={() => handleBoardClick()}
+      onClick={() => handleBoardClick(name)}
     >
       <p>{name}</p>
     </div>

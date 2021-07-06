@@ -1,5 +1,6 @@
 @use '../abstracts' as *;
 
+// Projects page
 .project-page-container {
     height: 100%;
     width: 70%;
@@ -49,5 +50,34 @@
         font-size: 14px;
         font-weight: 500;
         color: $dark-text-color;
+    }
+}
+
+.project-page {
+    width: 100vw;
+    height: 94vh;
+	background-color: $backgroud;
+    display: flex;
+    align-items: center;
+}
+
+.project-pannel {
+    @include card-style($card-color, 250px, 96%);
+    margin: 0 4px;
+    overflow: hidden;
+}
+
+.project-pannel-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+        font-size: 16px;
+        margin: 8px;
+    }
+
+    .initial-icon {
+        margin-right: 8px;
     }
 }
