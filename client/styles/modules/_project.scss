@@ -60,13 +60,17 @@
 	background-color: $backgroud;
     display: flex;
     align-items: center;
+
+    .project-pannel:first-child {
+		margin-left: 16px;
+	}
 }
 
 .project-pannel {
     @include center-vertically();
     @include card-style($card-color, 250px, 96%);
     @include card("regular");
-    margin: 0 4px;
+    margin: 0 8px;
     overflow: hidden;
 }
 
