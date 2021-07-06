@@ -17,6 +17,7 @@
 }
 
 .project-tile {
+    @include card("regular");
     @include card-style($card-color, 200px, 100px);
     margin: 8px;
 
@@ -62,7 +63,9 @@
 }
 
 .project-pannel {
+    @include center-vertically();
     @include card-style($card-color, 250px, 96%);
+    @include card("regular");
     margin: 0 4px;
     overflow: hidden;
 }
@@ -71,6 +74,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 
     p {
         font-size: 16px;
@@ -79,5 +83,17 @@
 
     .initial-icon {
         margin-right: 8px;
+    }
+}
+
+.project-pannel-card {
+    @include card("light");
+    @include card-theme("card");
+    width: 90%;
+    min-height: 100px;
+    margin: 4px 0;
+    
+    &:hover {
+        cursor: pointer;
     }
 }
