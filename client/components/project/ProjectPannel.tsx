@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ListCard from './ListCard';
 import MoreHorizRoundedIcon from '@material-ui/icons/MoreHorizRounded';
 import AddIcon from '@material-ui/icons/Add';
@@ -12,6 +12,9 @@ interface Props {
 
 const ProjectPannel = ({ name }: Props) => {
   const [displayMenu, setDisplayMenu] = useState(false);
+  const [pannelTitle, setPannelTitle] = useState(name);
+  const initialTitle = useRef<string>(name);
+  const titleInput = useRef<HTMLInputElement>(null);
 
   const dummyData = [
     "List-Item1",
@@ -33,7 +36,8 @@ const ProjectPannel = ({ name }: Props) => {
         break;
       }
       case "Rename Column": {
-        console.log(option);
+        titleInput?.current?.focus();
+        setDisplayMenu(false);
         break;
       }
       case "Delete Column": {
@@ -43,10 +47,32 @@ const ProjectPannel = ({ name }: Props) => {
     }
   };
 
+  const handleSave = () => {
+    titleInput?.current?.blur();
+    if (pannelTitle.trim().length === 0) {
+      setPannelTitle(initialTitle.current);
+    } else if (pannelTitle !== initialTitle.current) {
+      initialTitle.current = pannelTitle;
+    }
+    // TODO: Save new name
+  };
+
   return (
     <div className="project-pannel">
       <div className="project-pannel-title">
-        <p>{name}</p>
+        <input
+          data-valid={pannelTitle.length !== 0}
+          ref={titleInput}
+          value={pannelTitle}
+          onChange={(e) => setPannelTitle(e.target.value)}
+          onBlur={() => handleSave()}
+          onKeyDown={(e) => {
+            const key = e.keyCode || e.charCode;
+            if (key === 13 && e.shiftKey === false) {
+              handleSave();
+            }
+          }}
+        />
         <MoreHorizRoundedIcon
           className="initial-icon"
           onClick={() => setDisplayMenu(!displayMenu)}

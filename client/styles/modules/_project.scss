@@ -85,19 +85,34 @@
 }
 
 .project-pannel-title {
-    @include center-horizontally();
-    justify-content: space-between;
+    display: flex;
     width: 100%;
-    height: 34px;
     position: relative;
 
-    p {
+    input {
+        @include input-style(null, 30px);
+        background-color: transparent;
+        flex: 1;
         font-size: 16px;
         margin: 8px;
+        padding: 0 2px;
+        max-width: calc(100% - 52px);
+        cursor: pointer;
+    
+        &:focus {
+            cursor: text;
+            background-color: $backgroud;
+            &[data-valid=false]  {
+                @include outline($error-color);
+            }
+            &[data-valid=true]  {
+                @include outline($valid-color);
+            }
+        }
     }
 
     .initial-icon {
-        margin-right: 8px;
+        margin: 8px 8px 0 0;
     }
 }
 
