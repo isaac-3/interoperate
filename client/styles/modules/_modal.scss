@@ -16,3 +16,9 @@
     @include card("regular");
     color: $dark-text-color;
 }
+
+.modal-card-details {
+    @include card-style($card-color, 400px, 450px);
+    @include card("regular");
+    color: $dark-text-color;
+}

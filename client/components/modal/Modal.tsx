@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../lib/rootReducer';
 import LoginTemplate from '../landing-page/LoginTemplate';
 import SignupTemplate from '../landing-page/SignupTemplate';
+import CardDetailsModal from './CardDetailsModal';
 import NewProjectModal from './NewProjectModal';
 
 const Modal = () => {
@@ -18,6 +19,8 @@ const Modal = () => {
         return <SignupTemplate defocus={true} />;
       case "new-project":
         return <NewProjectModal />;
+      case "new-list-card":
+        return <CardDetailsModal />;
       case "":
         return null;
     }
