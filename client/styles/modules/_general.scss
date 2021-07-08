@@ -48,3 +48,25 @@
 		cursor: pointer;
 	}
 }
+
+.pannel-menu {
+	@include card("regular");
+	overflow: hidden;
+	background-color: map.get($card-tile, "regular");
+	position: absolute;
+	top: 30px;
+	right: 12px;
+	width: fit-content;
+	min-width: 100px;
+	
+	p {
+		color: $dark-text-color;
+		margin: 0;
+		padding: 4px 8px;
+
+		&:hover {
+			background-color: map.get($card-tile, "hover");
+			cursor: pointer;
+		}
+	}
+}

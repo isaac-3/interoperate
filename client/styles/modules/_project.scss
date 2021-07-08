@@ -1,3 +1,4 @@
+@use "sass:map";
 @use '../abstracts' as *;
 
 // Projects page
@@ -59,7 +60,6 @@
     height: 94vh;
 	background-color: $backgroud;
     display: flex;
-    align-items: center;
 
     .project-pannel:first-child {
 		margin-left: 16px;
@@ -67,37 +67,102 @@
 }
 
 .project-pannel {
-    @include center-vertically();
-    @include card-style($card-color, 250px, 96%);
+    @include card-style($card-color, 250px, null);
     @include card("regular");
-    margin: 0 8px;
-    overflow: hidden;
+    height: fit-content;
+    max-height: calc(100% - 34px);
+    margin: 16px 8px 0 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-pannel-card-container {
+    @include center-vertically();
+    @include scrollbar($nav);
+    padding: 0 8px;
+    overflow-y: auto;
+    height: 100%;
 }
 
 .project-pannel-title {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
+    position: relative;
 
-    p {
+    input {
+        @include input-style(null, 30px);
+        background-color: transparent;
+        flex: 1;
         font-size: 16px;
         margin: 8px;
+        padding: 0 2px;
+        max-width: calc(100% - 52px);
+        cursor: pointer;
+    
+        &:focus {
+            cursor: text;
+            background-color: $backgroud;
+            &[data-valid=false]  {
+                @include outline($error-color);
+            }
+            &[data-valid=true]  {
+                @include outline($valid-color);
+            }
+        }
     }
 
     .initial-icon {
-        margin-right: 8px;
+        margin: 8px 8px 0 0;
     }
 }
 
 .project-pannel-card {
     @include card("light");
     @include card-theme("card");
-    width: 90%;
-    min-height: 100px;
+    word-break: break-all;
+    width: 100%;
+    height: auto;
     margin: 4px 0;
     
     &:hover {
         cursor: pointer;
+    }
+}
+
+.project-new-card {
+    @include scrollbar($nav);
+    @include card("light");
+    width: 100%;
+    min-height: 100px;
+    resize: none;
+    margin: 4px 0;
+    outline: none;
+    border: none;
+    padding: 2px 0;
+}
+
+.project-pannel-footer {
+    @include center-horizontally();
+    justify-content: space-between;
+    width: 100%;
+    height: 34px;
+
+    p {
+        @include center-horizontally();
+        flex: 1;
+	    color: map.get($icon-button, "regular");
+        font-size: 16px;
+        margin: 8px;
+        border-radius: 6px;
+
+        &:hover {
+            color: map.get($icon-button, "regular-hover");
+            background-color: map.get($icon-button, "hover");
+            cursor: pointer;
+        }
+    }
+
+    .initial-icon {
+        margin-right: 8px;
     }
 }
