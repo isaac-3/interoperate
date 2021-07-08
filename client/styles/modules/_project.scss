@@ -119,13 +119,26 @@
 .project-pannel-card {
     @include card("light");
     @include card-theme("card");
+    word-break: break-all;
     width: 100%;
-    min-height: 100px;
+    height: auto;
     margin: 4px 0;
     
     &:hover {
         cursor: pointer;
     }
+}
+
+.project-new-card {
+    @include scrollbar($nav);
+    @include card("light");
+    width: 100%;
+    min-height: 100px;
+    resize: none;
+    margin: 4px 0;
+    outline: none;
+    border: none;
+    padding: 2px 0;
 }
 
 .project-pannel-footer {
