@@ -2,18 +2,19 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const userSchema = new Schema(
+const pannelSchema = new Schema(
   {
-    username: {
+    title: {
       type: String,
       required: true,
     },
-    email: {
-      type: String,
+    list: {
+      type: Array,
+      default: [],
       required: true,
     },
-    password: {
-      type: String,
+    postition: {
+      type: Number,
       required: true,
     },
   },
@@ -22,4 +23,4 @@ const userSchema = new Schema(
   }
 );
 
-export default mongoose.model("users", userSchema);
+export default mongoose.model("pannels", pannelSchema);
