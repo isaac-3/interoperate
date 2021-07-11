@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from '../../lib/hooks';
 import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
 import DefocusWrapper from '../util/DefocusWrapper';
 import FormInput from '../util/FormInput';
+import { useMutation } from '@apollo/client';
+import { LOG_IN } from '../../lib/GraphQL/Mutations';
 
 interface Props {
   defocus: boolean;
@@ -11,6 +13,20 @@ interface Props {
 
 const LoginTemplate = ({ defocus }: Props) => {
   const dispatch = useDispatch();
+  // @ts-ignore
+  const [signUpUser, { data: { login } = {} }] = useMutation(LOG_IN);
+
+  useEffect(() => {
+    if (login) {
+      console.log("data: ",login);
+      if (login["id"]) {
+        return;
+      }
+      if (login["message"]) {
+        return;
+      }
+    }
+  }, [login]);
 
   const [usernameValue, usernameError, usernameChange, usernameUpdate] =
     useForm("username");
@@ -21,7 +37,14 @@ const LoginTemplate = ({ defocus }: Props) => {
     // Runs every validaton function:
     // [usernameUpdate, passwordUpdate].forEach((f) => f());
     const res = passValidations();
-    if (res) console.log("Ready to submit!")
+    if (res) {
+      signUpUser({
+        variables: {
+          username: usernameValue,
+          password: passwordValue,
+        },
+      });
+    }
   };
 
   const passValidations = () => {

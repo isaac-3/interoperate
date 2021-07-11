@@ -2,6 +2,10 @@ import Users from "./models/dbUser.js";
 import Projects from "./models/dbProject.js";
 import Pannels from "./models/dbPannel.js";
 import Items from "./models/dbItem.js";
+import bcrypt from "bcryptjs";
+import pkg from "jsonwebtoken";
+
+const { sign } = pkg;
 
 export const resolvers = {
   Result: {
@@ -22,16 +26,41 @@ export const resolvers = {
     getItems: async () => await Items.find({}).exec(),
   },
   Mutation: {
-    addUser: async (_, args) => {
+    signUp: async (_, { username, email, password }, { req, res }) => {
       let result = {};
-      const found = await Users.findOne({ email: args.email });
+      const foundUser = await Users.findOne({ email: email });
 
-      if (found) {
+      if (foundUser) {
         result = { message: "User already exisit with that email" };
       } else {
-        const user = new Users(args);
+        const hashedPassword = await bcrypt.hash(password, 12);
+        const user = new Users({
+          username,
+          email,
+          password: hashedPassword,
+        });
         await user.save();
+        const token = sign({ id: user.id }, process.env.JWT_SECRET);
+        res.cookie("jwt_token", token);
         result = user;
+      }
+      return result;
+    },
+    login: async (_, { username, password }, { req, res }) => {
+      let result = {};
+      const foundUser = await Users.findOne({ username: username });
+
+      if (!foundUser) {
+        result = { message: "Invalid username or password" };
+      } else {
+        const isValid = await bcrypt.compare(password, foundUser.password);
+        if (!isValid) {
+          result = { message: "Invalid username or password" };
+        } else {
+          const token = sign({ id: foundUser.id }, process.env.JWT_SECRET);
+          res.cookie("jwt_token", token);
+          result = foundUser;
+        }
       }
       return result;
     },

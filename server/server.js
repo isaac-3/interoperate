@@ -5,6 +5,8 @@ import { resolvers } from "./resolvers.js";
 import { typeDefs } from "./typeDefs.js";
 import mongoose from "mongoose";
 import "dotenv/config.js";
+import authMiddleware from "./authMiddleware.js";
+import cookieParser from 'cookie-parser'
 
 mongoose.connect(process.env.MONGODB_URL, {
   useCreateIndex: true,
@@ -14,9 +16,23 @@ mongoose.connect(process.env.MONGODB_URL, {
 
 mongoose.connection.once("open", () => console.log(`Connected to mongoDB`));
 
-const server = new ApolloServer({ typeDefs, resolvers });
 const app = express();
-server.applyMiddleware({ app });
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: ({ req, res }) => ({ req, res }),
+});
+
+const corsOptions = {
+  origin: process.env.HOST,
+  credentials: true,
+};
+
+app.use(cookieParser());
+app.use(authMiddleware);
+
+server.applyMiddleware({ app, cors: corsOptions });
 
 app.listen({ port: process.env.PORT }, () =>
   console.log(`Server ready at http://localhost:${process.env.PORT}${server.graphqlPath}`)
