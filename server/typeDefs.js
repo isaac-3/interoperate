@@ -36,6 +36,7 @@ export const typeDefs = gql`
   union Result = User | Error
 
   type Query {
+    getUser: Result
     getUsers: [User]
     getProjects: [Project]
     getPannels: [Pannel]

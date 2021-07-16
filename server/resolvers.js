@@ -20,6 +20,16 @@ export const resolvers = {
     },
   },
   Query: {
+    getUser: async (_, args, { req, res, jwt_token }) => {
+      let result = {};
+      const foundUser = await Users.findById(req.id);
+      if (!foundUser) {
+        result = { message: "Please sign up or login" };
+      } else {
+        result = foundUser;
+      }
+      return result;
+    },
     getUsers: async () => await Users.find({}).exec(),
     getProjects: async () => await Projects.find({}).exec(),
     getPannels: async () => await Pannels.find({}).exec(),
