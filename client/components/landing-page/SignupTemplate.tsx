@@ -1,16 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from '../../lib/hooks';
-import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
+import {
+  resetModal,
+  setModalDisplay,
+  setModalType,
+} from '../../lib/slices/modalSlice';
 import DefocusWrapper from '../util/DefocusWrapper';
 import FormInput from '../util/FormInput';
+import { useMutation } from '@apollo/client';
+import { SIGN_UP } from '../../lib/GraphQL/Mutations';
+import { useRouter } from 'next/router';
+import { updateUser } from '../../lib/slices/userSlice';
 
 interface Props {
   defocus: boolean;
 }
 
-const SignupTemplate = ({ defocus } : Props) => {
+const SignupTemplate = ({ defocus }: Props) => {
+  const router = useRouter();
   const dispatch = useDispatch();
+  // @ts-ignore
+  const [signUpUser, { data: { signUp } = {} }] = useMutation(SIGN_UP);
+
+  useEffect(() => {
+    if (signUp) {
+      if (signUp["id"]) {
+        dispatch(resetModal());
+        dispatch(updateUser(signUp));
+        router.push(`/${signUp["username"]}`);
+      }
+      if (signUp["message"]) {
+        console.log(signUp)
+        return;
+      }
+    }
+  }, [signUp]);
 
   const [usernameValue, usernameError, usernameChange, usernameUpdate] =
     useForm("username");
@@ -23,7 +48,15 @@ const SignupTemplate = ({ defocus } : Props) => {
     // Runs every validaton function:
     // [usernameUpdate, passwordUpdate].forEach((f) => f());
     const res = passValidations();
-    if (res) console.log("Ready to submit!");
+    if (res) {
+      signUpUser({
+        variables: {
+          username: usernameValue,
+          email: emailValue,
+          password: passwordValue,
+        },
+      });
+    }
   };
 
   const passValidations = () => {

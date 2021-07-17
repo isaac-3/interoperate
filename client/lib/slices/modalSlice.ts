@@ -25,6 +25,11 @@ const modalSlice = createSlice({
     setModalProps: (state, action: PayloadAction<unknown>) => {
       state["modalProps"] = action.payload;
     },
+    resetModal: (state) => {
+      state["modalDisplay"] = false;
+      state["modalType"] = "";
+      state["modalProps"] = null;
+    },
   },
 });
 
@@ -32,6 +37,7 @@ export const {
   setModalDisplay,
   setModalType,
   setModalProps,
+  resetModal,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

@@ -1,23 +1,40 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import Cookies from 'js-cookie';
 
-interface UserState {
-  user: object;
+interface User {
+  id: number | null;
+  username: string;
 }
 
-const initialState = { user: { name: "test" } } as UserState;
+interface UserState {
+  user: User;
+}
+
+const initialState = {
+  user: {
+    id: null,
+    username: "",
+  },
+} as UserState;
 
 const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    updateUser: (state) => {
-      state["user"] = {
-        name: "update testUser",
-      };
+    updateUser: (state, action: PayloadAction<User>) => {
+      state.user = action.payload;
+    },
+    logOff: (state) => {
+      Cookies.remove("jwt_token");
+      state.user.id = 0;
+      state.user.username = "";
     },
   },
 });
 
-export const { updateUser } = userSlice.actions;
+export const {
+  updateUser,
+  logOff,
+} = userSlice.actions;
 
 export default userSlice.reducer;

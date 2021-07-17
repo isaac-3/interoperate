@@ -11,7 +11,7 @@ const errorLink = onError(({ graphQLErrors, networkError }) => {
 
 const link = from([
   errorLink,
-  new HttpLink({ uri: process.env.API_ENDPOINT }),
+  new HttpLink({ uri: process.env.API_ENDPOINT, credentials: "include" }),
 ]);
 
 const apolloClient = new ApolloClient({

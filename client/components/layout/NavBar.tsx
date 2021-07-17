@@ -1,7 +1,12 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../lib/rootReducer';
 import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
+import HomeIcon from '@material-ui/icons/Home';
+import Avatar from '@material-ui/core/Avatar';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { logOff } from '../../lib/slices/userSlice';
 
 const diabledNavbarPaths = ["login", "signup"];
 
@@ -10,7 +15,7 @@ const NavBar = () => {
   const router = useRouter();
   const urlPath = router.asPath.split("/")[1];
 
-  const [authed, setAuthed] = useState(false);
+  const user = useSelector((state: RootState) => state.user.user);
 
   const handlePromptType = (type: string) => {
     dispatch(setModalDisplay());
@@ -19,14 +24,29 @@ const NavBar = () => {
 
   if (diabledNavbarPaths.includes(urlPath)) return null;
 
+  if (user.id === null) return null;
+
   return (
     <>
-      {authed ? (
-        <div>Authed User</div>
+      {user.id ? (
+        <div className="nav-bar-authed">
+          <HomeIcon className="nav-bar-icon" />
+          <h3>Interoperate</h3>
+          <Avatar
+            className="nav-bar-profile"
+            variant="rounded"
+            onClick={() => {
+              dispatch(logOff());
+              router.push("/");
+            }}
+          >
+            <AccountCircleIcon className="nav-bar-profile-icon" />
+          </Avatar>
+        </div>
       ) : (
         <div className="nav-bar-unauthed">
           <h3>Interoperate</h3>
-          <div  className="nav-bar-button"
+          <div className="nav-bar-button"
             onClick={() => handlePromptType("login")}
           >
             Login

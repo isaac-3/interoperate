@@ -36,6 +36,7 @@ export const typeDefs = gql`
   union Result = User | Error
 
   type Query {
+    getUser: Result
     getUsers: [User]
     getProjects: [Project]
     getPannels: [Pannel]
@@ -43,7 +44,8 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): Result
+    signUp(username: String!, email: String!, password: String!): Result
+    login(username: String!, password: String!): Result
     addProject(title: String!): Project
     addPannel(title: String!, postition: Int): Pannel
     addItem(title: String!, description: String, postition: Int): Item
