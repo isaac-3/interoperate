@@ -1,28 +1,37 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from '../../lib/hooks';
-import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
+import {
+  resetModal,
+  setModalDisplay,
+  setModalType,
+} from '../../lib/slices/modalSlice';
 import DefocusWrapper from '../util/DefocusWrapper';
 import FormInput from '../util/FormInput';
 import { useMutation } from '@apollo/client';
 import { SIGN_UP } from '../../lib/GraphQL/Mutations';
+import { useRouter } from 'next/router';
+import { updateUser } from '../../lib/slices/userSlice';
 
 interface Props {
   defocus: boolean;
 }
 
 const SignupTemplate = ({ defocus }: Props) => {
+  const router = useRouter();
   const dispatch = useDispatch();
   // @ts-ignore
   const [signUpUser, { data: { signUp } = {} }] = useMutation(SIGN_UP);
 
   useEffect(() => {
     if (signUp) {
-      console.log("data: ", signUp);
       if (signUp["id"]) {
-        return;
+        dispatch(resetModal());
+        dispatch(updateUser(signUp));
+        router.push(`/${signUp["username"]}`);
       }
       if (signUp["message"]) {
+        console.log(signUp)
         return;
       }
     }

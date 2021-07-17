@@ -10,6 +10,8 @@ import React, { useEffect } from 'react';
 import { GET_USER } from '../lib/GraphQL/Queries';
 import { updateUser } from '../lib/slices/userSlice';
 
+const redirectedRoutes = ["login", "signup"];
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ApolloProvider client={apolloClient}>
@@ -35,10 +37,14 @@ const ComponentWrapper = ({ Component, pageProps }) => {
 
       if (data["getUser"]["__typename"] === "User") {
         dispatch(updateUser(data["getUser"]));
+        if (redirectedRoutes.includes(urlPath)) {
+          router.push(`/${data["getUser"]["username"]}`);
+        }
       } else if (data["getUser"]["__typename"] === "Error") {
         dispatch(updateUser({ id: 0, username: "" }));
-      } else {
-        // router.push("/");
+        if (!redirectedRoutes.includes(urlPath)) {
+          router.push("/");
+        }
       }
     };
 

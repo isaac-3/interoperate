@@ -20,7 +20,7 @@ export const resolvers = {
     },
   },
   Query: {
-    getUser: async (_, args, { req, res, jwt_token }) => {
+    getUser: async (_, args, { req, res }) => {
       let result = {};
       const foundUser = await Users.findById(req.id);
       if (!foundUser) {

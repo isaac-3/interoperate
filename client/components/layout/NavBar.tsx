@@ -6,6 +6,7 @@ import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
 import HomeIcon from '@material-ui/icons/Home';
 import Avatar from '@material-ui/core/Avatar';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import { logOff } from '../../lib/slices/userSlice';
 
 const diabledNavbarPaths = ["login", "signup"];
 
@@ -34,7 +35,10 @@ const NavBar = () => {
           <Avatar
             className="nav-bar-profile"
             variant="rounded"
-            onClick={() => console.log("Profile")}
+            onClick={() => {
+              dispatch(logOff());
+              router.push("/");
+            }}
           >
             <AccountCircleIcon className="nav-bar-profile-icon" />
           </Avatar>
