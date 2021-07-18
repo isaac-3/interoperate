@@ -13,6 +13,9 @@ export const typeDefs = gql`
     id: ID!
     title: String!
     pannels: [Pannel]
+    ownerID: ID
+    members: [User]
+    owner: User
   }
 
   type Pannel {
@@ -46,7 +49,7 @@ export const typeDefs = gql`
   type Mutation {
     signUp(username: String!, email: String!, password: String!): Result
     login(username: String!, password: String!): Result
-    addProject(title: String!): Project
+    addProject(title: String!, ownerID: ID!): Project
     addPannel(title: String!, postition: Int): Pannel
     addItem(title: String!, description: String, postition: Int): Item
   }
