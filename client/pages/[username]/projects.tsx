@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ProjectTile from '../../components/project/ProjectTile';
 import { GET_PROJECTS } from '../../lib/GraphQL/Queries';
 import apolloClient from '../../apolloClient';
@@ -9,15 +9,23 @@ interface Project {
   title: string;
 }
 
-interface Props {
-  projects: Project[];
-}
-
-const Projects = ({ projects }: Props) => {
+const Projects = () => {
   const router = useRouter();
   const username = router.query["username"];
-  console.log(username);
-  console.log(projects);
+
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  useEffect(() => {
+    const getProjects = async () => {
+      const { data } = await apolloClient.query({
+        query: GET_PROJECTS,
+      });
+
+      setProjects(data["getProjects"]);
+    };
+
+    getProjects();
+  }, []);
 
   return (
     <div className="initial-page">
@@ -41,15 +49,3 @@ const Projects = ({ projects }: Props) => {
 };
 
 export default Projects;
-
-export const getServerSideProps = async () => {
-  const { data } = await apolloClient.query({
-    query: GET_PROJECTS,
-  });
-
-  return {
-    props: {
-      projects: data["getProjects"],
-    },
-  };
-};

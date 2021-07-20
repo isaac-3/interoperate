@@ -30,6 +30,7 @@ const QUERIES = {
       getProjects {
         id
         title
+        ownerID
       }
     }
   `,
