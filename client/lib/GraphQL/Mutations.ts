@@ -31,6 +31,19 @@ const Mutations = {
       }
     }
   `,
+  ADD_PROJECT: gql`
+    mutation AddProject($title: String!, $ownerID: ID!) {
+      addProject(title: $title, ownerID: $ownerID) {
+        id
+        title
+        ownerID
+      }
+    }
+  `,
 };
 
-export const { SIGN_UP, LOG_IN } = Mutations;
+export const {
+  SIGN_UP,
+  LOG_IN,
+  ADD_PROJECT
+} = Mutations;
