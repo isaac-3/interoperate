@@ -32,6 +32,7 @@ const Projects = () => {
           {getProjects?.map((project) => (
             <ProjectTile
               key={project["id"]}
+              id={project["id"]}
               name={project["title"]}
               exsisting
             />

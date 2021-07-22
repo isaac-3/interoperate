@@ -23,6 +23,7 @@ export const typeDefs = gql`
     title: String!
     list: [Item]
     postition: Int
+    projectID: ID
   }
 
   type Item {
@@ -43,6 +44,7 @@ export const typeDefs = gql`
     getUsers: [User]
     getProjects: [Project]
     getPannels: [Pannel]
+    getProjectPannels(projectID: ID!): [Pannel]
     getItems: [Item]
   }
 
@@ -50,7 +52,7 @@ export const typeDefs = gql`
     signUp(username: String!, email: String!, password: String!): Result
     login(username: String!, password: String!): Result
     addProject(title: String!, ownerID: ID!): Project
-    addPannel(title: String!, postition: Int): Pannel
+    addPannel(title: String!, postition: Int!, projectID: ID!): Pannel
     addItem(title: String!, description: String, postition: Int): Item
   }
 `;

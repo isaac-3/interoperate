@@ -5,7 +5,7 @@ import Items from "./models/dbItem.js";
 import bcrypt from "bcryptjs";
 import pkg from "jsonwebtoken";
 
-const { sign, verify } = pkg;
+const { sign } = pkg;
 
 export const resolvers = {
   Result: {
@@ -36,6 +36,12 @@ export const resolvers = {
       return myProjects;
     },
     getPannels: async () => await Pannels.find({}).exec(),
+    getProjectPannels: async (_, { projectID }) => {
+      const projectPannels = await Pannels.find({ projectID: projectID }).sort({
+        postition: "asc",
+      });
+      return projectPannels;
+    },
     getItems: async () => await Items.find({}).exec(),
   },
   Mutation: {

@@ -5,20 +5,18 @@ import consts from '../../lib/data';
 import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
 
 interface Props {
+  id?: string;
   name: string;
   exsisting: boolean;
 }
 
-const ProjectTile = ({ name, exsisting }: Props) => {
+const ProjectTile = ({ id, name, exsisting }: Props) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const handleBoardClick = (name: string) => {
+  const handleTileClick = () => {
     if (exsisting) {
-      router.push({
-        pathname: "/p/[projectID]",
-        query: { projectID: name },
-      });
+      router.push(`/p/${id}`);
     } else {
       dispatch(setModalType("new-project"));
       dispatch(setModalDisplay());
@@ -31,7 +29,7 @@ const ProjectTile = ({ name, exsisting }: Props) => {
       style={{
         backgroundImage: exsisting ? `url(${consts["TEMP_IMG"]})` : undefined,
       }}
-      onClick={() => handleBoardClick(name)}
+      onClick={() => handleTileClick()}
     >
       <p>{name}</p>
     </div>

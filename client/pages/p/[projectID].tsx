@@ -1,23 +1,40 @@
-import { useRouter } from 'next/router';
+import { useQuery } from '@apollo/client';
 import React from 'react';
 import ProjectPannel from '../../components/project/ProjectPannel';
+import { GET_PROJECT_PANNELS } from '../../lib/GraphQL/Queries';
+import { NextPage } from 'next';
 
-interface Props {}
+interface Pannel {
+  id: string;
+  title: string;
+}
 
-const Project = (props: Props) => {
-  const router = useRouter();
-  const projectID = router.query;
-  console.log(projectID);
+interface PannelData {
+  getProjectPannels: Pannel[];
+}
 
-  const dummyData = ["Pannel1", "Pannel2", "Pannel3", "Pannel4"];
+interface PageProps {
+  projectID?: string;
+}
+
+const Project: NextPage<PageProps> = ({ projectID }) => {
+
+  const { loading, data: { getProjectPannels } = {} } = useQuery<PannelData>(
+    GET_PROJECT_PANNELS,
+    { variables: { projectID: projectID } }
+  );
 
   return (
     <div className="project-page">
-      {dummyData.map((d) => (
-        <ProjectPannel key={d} name={d} />
+      {getProjectPannels?.map((pannel) => (
+        <ProjectPannel key={pannel.id} name={pannel.title} />
       ))}
     </div>
   );
 };
 
 export default Project;
+
+Project.getInitialProps = async ({ query }) => {
+  return query;
+};

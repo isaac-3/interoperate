@@ -34,6 +34,19 @@ const QUERIES = {
       }
     }
   `,
+  GET_PROJECT_PANNELS: gql`
+    query ($projectID: ID!) {
+      getProjectPannels(projectID: $projectID) {
+        id
+        title
+      }
+    }
+  `,
 };
 
-export const { GET_USER, GET_USERS, GET_PROJECTS } = QUERIES;
+export const {
+  GET_USER,
+  GET_USERS,
+  GET_PROJECTS,
+  GET_PROJECT_PANNELS
+} = QUERIES;
