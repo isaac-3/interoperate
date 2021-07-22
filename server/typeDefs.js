@@ -37,6 +37,11 @@ export const typeDefs = gql`
     message: String!
   }
 
+  type DeleteMessage {
+    success: Boolean
+    message: String
+  }
+
   union Result = User | Error
 
   type Query {
@@ -49,10 +54,18 @@ export const typeDefs = gql`
   }
 
   type Mutation {
+    # Create
     signUp(username: String!, email: String!, password: String!): Result
-    login(username: String!, password: String!): Result
     addProject(title: String!, ownerID: ID!): Project
     addPannel(title: String!, postition: Int!, projectID: ID!): Pannel
     addItem(title: String!, description: String, postition: Int): Item
+
+    # Read
+    login(username: String!, password: String!): Result
+
+    # Update
+
+    # Delete
+    deletePannel(pannelID: ID!): DeleteMessage
   }
 `;

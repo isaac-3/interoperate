@@ -5,34 +5,32 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DefocusWrapper from '../util/DefocusWrapper';
 import consts from '../../lib/data';
-
-const dummyData = [
-  "List-Item1",
-  "List-Item2",
-  "List-Item3",
-  "List-Item4",
-  "List-Item5",
-  "List-Item6",
-  "List-Item7",
-  "List-Item8",
-  "List-Item9",
-  "List-Item10",
-];
+import { DELETE_PANNEL } from '../../lib/GraphQL/Mutations';
+import { useMutation } from '@apollo/client';
 
 interface Props {
+  id: string;
   name: string;
 }
 
-const ProjectPannel = ({ name }: Props) => {
+const ProjectPannel = ({ id, name }: Props) => {
   const [displayMenu, setDisplayMenu] = useState(false);
   const [pannelTitle, setPannelTitle] = useState(name);
   const [displayNewCard, setDisplayNewCard] = useState(false);
-  const [pannelItems, setPannelItems] = useState(dummyData);
+  const [pannelItems, setPannelItems] = useState([]);
   const [newCardData, setNewCardData] = useState("");
   const initialTitle = useRef<string>(name);
   const titleInputRed = useRef<HTMLInputElement>(null);
   const newCardRef = useRef<HTMLTextAreaElement>(null);
   const pannelContainerRef = useRef<HTMLDivElement>(null);
+
+  const [deleteProject] = useMutation(DELETE_PANNEL, {
+    update(cache) {
+      const identifiedID = cache.identify({ id, __typename: "Pannel" });
+      cache.evict({ id: identifiedID });
+      cache.gc();
+    },
+  });
 
   const handleOption = (option: string) => {
     switch (option) {
@@ -47,7 +45,7 @@ const ProjectPannel = ({ name }: Props) => {
         break;
       }
       case "Delete Column": {
-        console.log(option);
+        deleteProject({ variables: { pannelID: id } });
         break;
       }
     }
@@ -71,7 +69,7 @@ const ProjectPannel = ({ name }: Props) => {
         } else {
           console.log("good");
           setDisplayNewCard(false);
-          setPannelItems([...pannelItems, newCardData]);
+          // setPannelItems([...pannelItems, newCardData]);
           setNewCardData("");
         }
         break;
@@ -150,7 +148,7 @@ const ProjectPannel = ({ name }: Props) => {
         <DeleteIcon
           fontSize="small"
           className="initial-icon"
-          onClick={() => console.log("Delete Column")}
+          onClick={() => handleOption("Delete Column")}
         />
       </div>
     </div>

@@ -27,7 +27,7 @@ const Project: NextPage<PageProps> = ({ projectID }) => {
   return (
     <div className="project-page">
       {getProjectPannels?.map((pannel) => (
-        <ProjectPannel key={pannel.id} name={pannel.title} />
+        <ProjectPannel key={pannel.id} id={pannel.id} name={pannel.title} />
       ))}
     </div>
   );

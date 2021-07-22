@@ -100,5 +100,19 @@ export const resolvers = {
       await item.save();
       return item;
     },
+    deletePannel: async (_, { pannelID }) => {
+      const myProjects = await Pannels.findByIdAndDelete(pannelID);
+      if (myProjects) {
+        return {
+          success: true,
+          message: "Successfully deleted",
+        };
+      } else {
+        return {
+          success: false,
+          message: "An error occured",
+        };
+      }
+    },
   },
 };

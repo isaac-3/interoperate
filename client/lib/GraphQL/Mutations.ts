@@ -40,10 +40,19 @@ const Mutations = {
       }
     }
   `,
+  DELETE_PANNEL: gql`
+    mutation DeletePannel($pannelID: ID!) {
+      deletePannel(pannelID: $pannelID) {
+        success
+        message
+      }
+    }
+  `,
 };
 
 export const {
   SIGN_UP,
   LOG_IN,
-  ADD_PROJECT
+  ADD_PROJECT,
+  DELETE_PANNEL,
 } = Mutations;
