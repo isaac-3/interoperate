@@ -17,12 +17,12 @@ const DefocusWrapper = ({ children, defocus = true, className, callBack }: Props
     };
 
     if (defocus) {
-      document.addEventListener("mousedown", handleClick);
+      document.addEventListener("click", handleClick);
     }
 
     return () => {
       if (defocus) {
-        document.removeEventListener("mousedown", handleClick);
+        document.removeEventListener("click", handleClick);
       }
     };
   }, []);

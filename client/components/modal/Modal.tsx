@@ -1,12 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../lib/rootReducer';
+import { resetModal } from '../../lib/slices/modalSlice';
 import LoginTemplate from '../landing-page/LoginTemplate';
 import SignupTemplate from '../landing-page/SignupTemplate';
 import CardDetailsModal from './CardDetailsModal';
 import NewProjectModal from './NewProjectModal';
 
 const Modal = () => {
+  const dispatch = useDispatch();
+
   const { modalDisplay, modalType } = useSelector(
     (state: RootState) => state.modal
   );
@@ -22,6 +25,7 @@ const Modal = () => {
       case "new-list-card":
         return <CardDetailsModal />;
       case "":
+        dispatch(resetModal());
         return null;
     }
   };
