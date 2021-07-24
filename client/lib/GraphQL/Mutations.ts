@@ -31,6 +31,41 @@ const Mutations = {
       }
     }
   `,
+  ADD_PROJECT: gql`
+    mutation AddProject($title: String!, $ownerID: ID!) {
+      addProject(title: $title, ownerID: $ownerID) {
+        id
+        title
+        ownerID
+      }
+    }
+  `,
+  DELETE_PANNEL: gql`
+    mutation DeletePannel($pannelID: ID!) {
+      deletePannel(pannelID: $pannelID) {
+        success
+        message
+      }
+    }
+  `,
+  RENAME_PANNEL: gql`
+    mutation RenamePannel($pannelID: ID!, $update: PannelUpdate) {
+      renamePannel(pannelID: $pannelID, update: $update) {
+        success
+        message
+        pannel {
+          id
+          title
+        }
+      }
+    }
+  `,
 };
 
-export const { SIGN_UP, LOG_IN } = Mutations;
+export const {
+  SIGN_UP,
+  LOG_IN,
+  ADD_PROJECT,
+  DELETE_PANNEL,
+  RENAME_PANNEL,
+} = Mutations;

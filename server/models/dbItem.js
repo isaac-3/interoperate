@@ -12,7 +12,7 @@ const itemSchema = new Schema(
       type: String,
       default: "",
     },
-    postition: {
+    position: {
       type: Number,
       required: true,
     },

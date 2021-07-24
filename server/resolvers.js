@@ -31,8 +31,17 @@ export const resolvers = {
       return result;
     },
     getUsers: async () => await Users.find({}).exec(),
-    getProjects: async () => await Projects.find({}).exec(),
+    getProjects: async (_, args, { req, res }) => {
+      const myProjects = await Projects.find({ ownerID: req.id });
+      return myProjects;
+    },
     getPannels: async () => await Pannels.find({}).exec(),
+    getProjectPannels: async (_, { projectID }) => {
+      const projectPannels = await Pannels.find({ projectID: projectID }).sort({
+        position: "asc",
+      });
+      return projectPannels;
+    },
     getItems: async () => await Items.find({}).exec(),
   },
   Mutation: {
@@ -74,9 +83,11 @@ export const resolvers = {
       }
       return result;
     },
-    addProject: async (_, args) => {
-      const project = new Projects(args);
+    addProject: async (_, { title, ownerID }) => {
+      const project = new Projects({ title, ownerID });
       await project.save();
+      const owner = await Users.findById(ownerID);
+      project["owner"] = owner;
       return project;
     },
     addPannel: async (_, args) => {
@@ -88,6 +99,38 @@ export const resolvers = {
       const item = new Items(args);
       await item.save();
       return item;
+    },
+    deletePannel: async (_, { pannelID }) => {
+      const myProjects = await Pannels.findByIdAndDelete(pannelID);
+      if (myProjects) {
+        return {
+          success: true,
+          message: "Successfully completed",
+        };
+      } else {
+        return {
+          success: false,
+          message: "An error occured",
+        };
+      }
+    },
+    renamePannel: async (_, { pannelID, update }) => {
+      const myProjects = await Pannels.findByIdAndUpdate(pannelID, update, {
+        new: true,
+      });
+      if (myProjects) {
+        return {
+          success: true,
+          message: "Successfully completed",
+          pannel: myProjects,
+        };
+      } else {
+        return {
+          success: false,
+          message: "An error occured",
+          pannel: { id: 0, title: "" },
+        };
+      }
     },
   },
 };

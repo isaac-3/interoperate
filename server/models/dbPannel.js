@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
+const { ObjectId } = mongoose.Schema.Types;
 
 const pannelSchema = new Schema(
   {
@@ -13,9 +14,14 @@ const pannelSchema = new Schema(
       default: [],
       required: true,
     },
-    postition: {
+    position: {
       type: Number,
       required: true,
+    },
+    projectID: {
+      type: ObjectId,
+      required: true,
+      ref: "projects",
     },
   },
   {
