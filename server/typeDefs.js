@@ -22,7 +22,7 @@ export const typeDefs = gql`
     id: ID!
     title: String!
     list: [Item]
-    postition: Int
+    position: Int
     projectID: ID
   }
 
@@ -30,16 +30,17 @@ export const typeDefs = gql`
     id: ID!
     title: String!
     description: String
-    postition: Int
+    position: Int
   }
 
   type Error {
     message: String!
   }
 
-  type DeleteMessage {
+  type ActionMessage {
     success: Boolean
     message: String
+    pannel: Pannel
   }
 
   union Result = User | Error
@@ -53,19 +54,25 @@ export const typeDefs = gql`
     getItems: [Item]
   }
 
+  input PannelUpdate {
+    title: String
+    position: Int
+  }
+
   type Mutation {
     # Create
     signUp(username: String!, email: String!, password: String!): Result
     addProject(title: String!, ownerID: ID!): Project
-    addPannel(title: String!, postition: Int!, projectID: ID!): Pannel
-    addItem(title: String!, description: String, postition: Int): Item
+    addPannel(title: String!, position: Int!, projectID: ID!): Pannel
+    addItem(title: String!, description: String, position: Int): Item
 
     # Read
     login(username: String!, password: String!): Result
 
     # Update
+    renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
 
     # Delete
-    deletePannel(pannelID: ID!): DeleteMessage
+    deletePannel(pannelID: ID!): ActionMessage
   }
 `;

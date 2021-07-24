@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DefocusWrapper from '../util/DefocusWrapper';
 import consts from '../../lib/data';
-import { DELETE_PANNEL } from '../../lib/GraphQL/Mutations';
+import { DELETE_PANNEL, RENAME_PANNEL } from '../../lib/GraphQL/Mutations';
 import { useMutation } from '@apollo/client';
 
 interface Props {
@@ -31,6 +31,14 @@ const ProjectPannel = ({ id, name }: Props) => {
       cache.gc();
     },
   });
+
+  const [renamePannel] = useMutation(RENAME_PANNEL);
+
+  useEffect(() => {
+    if (pannelTitle !== name) {
+      setPannelTitle(name);
+    }
+  }, [name]);
 
   const handleOption = (option: string) => {
     switch (option) {
@@ -59,6 +67,12 @@ const ProjectPannel = ({ id, name }: Props) => {
           setPannelTitle(initialTitle.current);
         } else if (pannelTitle !== initialTitle.current) {
           initialTitle.current = pannelTitle;
+          renamePannel({
+            variables: {
+              pannelID: id,
+              update: { title: pannelTitle },
+            },
+          });
         }
         break;
       case "new-card":

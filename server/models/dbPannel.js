@@ -14,7 +14,7 @@ const pannelSchema = new Schema(
       default: [],
       required: true,
     },
-    postition: {
+    position: {
       type: Number,
       required: true,
     },

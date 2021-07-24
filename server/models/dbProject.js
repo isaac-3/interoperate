@@ -34,7 +34,7 @@ projectSchema.post("save", async (newProject, next) => {
       initPannels.map(async (pannel, index) => {
         const newPannel = new Pannels({
           title: pannel,
-          postition: index,
+          position: index,
           projectID: newProject._id,
         });
         await newPannel.save();

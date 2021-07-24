@@ -38,7 +38,7 @@ export const resolvers = {
     getPannels: async () => await Pannels.find({}).exec(),
     getProjectPannels: async (_, { projectID }) => {
       const projectPannels = await Pannels.find({ projectID: projectID }).sort({
-        postition: "asc",
+        position: "asc",
       });
       return projectPannels;
     },
@@ -105,12 +105,30 @@ export const resolvers = {
       if (myProjects) {
         return {
           success: true,
-          message: "Successfully deleted",
+          message: "Successfully completed",
         };
       } else {
         return {
           success: false,
           message: "An error occured",
+        };
+      }
+    },
+    renamePannel: async (_, { pannelID, update }) => {
+      const myProjects = await Pannels.findByIdAndUpdate(pannelID, update, {
+        new: true,
+      });
+      if (myProjects) {
+        return {
+          success: true,
+          message: "Successfully completed",
+          pannel: myProjects,
+        };
+      } else {
+        return {
+          success: false,
+          message: "An error occured",
+          pannel: { id: 0, title: "" },
         };
       }
     },

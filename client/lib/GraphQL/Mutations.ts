@@ -48,6 +48,18 @@ const Mutations = {
       }
     }
   `,
+  RENAME_PANNEL: gql`
+    mutation RenamePannel($pannelID: ID!, $update: PannelUpdate) {
+      renamePannel(pannelID: $pannelID, update: $update) {
+        success
+        message
+        pannel {
+          id
+          title
+        }
+      }
+    }
+  `,
 };
 
 export const {
@@ -55,4 +67,5 @@ export const {
   LOG_IN,
   ADD_PROJECT,
   DELETE_PANNEL,
+  RENAME_PANNEL,
 } = Mutations;

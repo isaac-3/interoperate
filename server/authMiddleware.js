@@ -17,7 +17,6 @@ const authMiddleware = (req, res, next) => {
   try {
     const data = verify(jwt_token, process.env.JWT_SECRET);
     req.id = data.id;
-    console.log("data: ", data);
     return next();
   } catch {}
   next();
