@@ -1,4 +1,4 @@
-import { useMutation, useQuery, gql } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React, { useRef, useState, useEffect } from 'react';
 import ProjectPannel from '../../components/project/ProjectPannel';
 import { GET_PROJECT_PANNELS } from '../../lib/GraphQL/Queries';
@@ -9,6 +9,7 @@ import { ADD_PANNEL } from '../../lib/GraphQL/Mutations';
 interface Pannel {
   id: string;
   title: string;
+  projectID: string;
 }
 
 interface PannelData {
@@ -31,22 +32,16 @@ const Project: NextPage<PageProps> = ({ projectID }) => {
 
   const [createPannel] = useMutation(ADD_PANNEL, {
     update(cache, { data: { addPannel } }) {
-      cache.modify({
-        fields: {
-          getProjectPannels(exsistingPannels = []) {
-            const newPannelRef = cache.writeFragment({
-              data: addPannel,
-              fragment: gql`
-                fragment NewPannel on Pannel {
-                  id
-                  title
-                  position
-                  projectID
-                }
-              `,
-            });
-            return [...exsistingPannels, newPannelRef];
-          },
+      const data = cache.readQuery({
+        query: GET_PROJECT_PANNELS,
+        variables: { projectID: projectID },
+      });
+      cache.writeQuery({
+        query: GET_PROJECT_PANNELS,
+        variables: { projectID: projectID },
+        data: {
+          // @ts-ignore
+          getProjectPannels: [...data.getProjectPannels, addPannel],
         },
       });
     },
