@@ -1,17 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
-import ListCard from "./ListCard";
-import MoreHorizRoundedIcon from "@material-ui/icons/MoreHorizRounded";
-import AddIcon from "@material-ui/icons/Add";
-import DeleteIcon from "@material-ui/icons/Delete";
-import DefocusWrapper from "../util/DefocusWrapper";
-import consts from "../../lib/data";
+import React, { useEffect, useRef, useState } from 'react';
+import ListCard from './ListCard';
+import MoreHorizRoundedIcon from '@material-ui/icons/MoreHorizRounded';
+import AddIcon from '@material-ui/icons/Add';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DefocusWrapper from '../util/DefocusWrapper';
+import consts from '../../lib/data';
 import {
   ADD_ITEM,
   DELETE_PANNEL,
   RENAME_PANNEL,
-} from "../../lib/GraphQL/Mutations";
-import { useMutation, gql, useQuery } from "@apollo/client";
-import { GET_PANNEL_ITEMS } from "../../lib/GraphQL/Queries";
+} from '../../lib/GraphQL/Mutations';
+import { useMutation, gql, useQuery } from '@apollo/client';
+import { GET_PANNEL_ITEMS } from '../../lib/GraphQL/Queries';
 
 interface Props {
   id: string;
