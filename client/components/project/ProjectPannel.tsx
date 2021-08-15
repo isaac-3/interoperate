@@ -141,11 +141,15 @@ const ProjectPannel = ({ id, name }: Props) => {
               pannelID: id,
             },
           });
-          setDisplayNewCard(false);
-          setNewCardData("");
+          handleBlur();
         }
         break;
     }
+  };
+
+  const handleBlur = () => {
+    setDisplayNewCard(false);
+    setNewCardData("");
   };
 
   useEffect(() => {
@@ -200,6 +204,7 @@ const ProjectPannel = ({ id, name }: Props) => {
             ref={newCardRef}
             className="project-new-card"
             value={newCardData}
+            onBlur={() => handleBlur()}
             onChange={(e) => setNewCardData(e.target.value)}
             onKeyDown={(e) => {
               const key = e.keyCode || e.charCode;
