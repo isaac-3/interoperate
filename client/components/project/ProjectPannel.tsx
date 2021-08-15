@@ -5,24 +5,45 @@ import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DefocusWrapper from '../util/DefocusWrapper';
 import consts from '../../lib/data';
-import { DELETE_PANNEL, RENAME_PANNEL } from '../../lib/GraphQL/Mutations';
-import { useMutation } from '@apollo/client';
+import {
+  ADD_ITEM,
+  DELETE_PANNEL,
+  RENAME_PANNEL,
+} from '../../lib/GraphQL/Mutations';
+import { useMutation, gql, useQuery } from '@apollo/client';
+import { GET_PANNEL_ITEMS } from '../../lib/GraphQL/Queries';
 
 interface Props {
   id: string;
   name: string;
 }
 
+interface Item {
+  id: string;
+  title: string;
+  position: number;
+  pannelID: string;
+}
+
+interface PannelItemsData {
+  getPannelItems: Item[];
+}
+
 const ProjectPannel = ({ id, name }: Props) => {
   const [displayMenu, setDisplayMenu] = useState(false);
   const [pannelTitle, setPannelTitle] = useState(name);
   const [displayNewCard, setDisplayNewCard] = useState(false);
-  const [pannelItems, setPannelItems] = useState([]);
+  const [pannelItems, setPannelItems] = useState<Item[]>([]);
   const [newCardData, setNewCardData] = useState("");
   const initialTitle = useRef<string>(name);
   const titleInputRed = useRef<HTMLInputElement>(null);
   const newCardRef = useRef<HTMLTextAreaElement>(null);
   const pannelContainerRef = useRef<HTMLDivElement>(null);
+
+  const { data: { getPannelItems } = {} } = useQuery<PannelItemsData>(
+    GET_PANNEL_ITEMS,
+    { variables: { pannelID: id } }
+  );
 
   const [deleteProject] = useMutation(DELETE_PANNEL, {
     update(cache) {
@@ -33,6 +54,39 @@ const ProjectPannel = ({ id, name }: Props) => {
   });
 
   const [renamePannel] = useMutation(RENAME_PANNEL);
+
+  const [createItem] = useMutation(ADD_ITEM, {
+    update(cache, { data: { addItem } }) {
+      cache.modify({
+        fields: {
+          getPannelItems(exsistingPannelItems = []) {
+            const newPannelItemsRef = cache.writeFragment({
+              data: addItem,
+              fragment: gql`
+                fragment NewItem on Item {
+                  id
+                  title
+                  position
+                  pannelID
+                }
+              `,
+            });
+            return [...exsistingPannelItems, newPannelItemsRef];
+          },
+        },
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (getPannelItems) {
+      // Filters on cache update
+      const filteredItems = getPannelItems.filter(
+        (item) => item.pannelID === id
+      );
+      setPannelItems(filteredItems);
+    }
+  }, [getPannelItems]);
 
   useEffect(() => {
     if (pannelTitle !== name) {
@@ -78,17 +132,20 @@ const ProjectPannel = ({ id, name }: Props) => {
       case "new-card":
         newCardRef.current?.blur();
         if (newCardData.trim().length === 0) {
-          console.log("no nmae insteted");
           setDisplayNewCard(false);
         } else {
-          console.log("good");
+          createItem({
+            variables: {
+              title: newCardData,
+              position: pannelItems.length + 1,
+              pannelID: id,
+            },
+          });
           setDisplayNewCard(false);
-          // setPannelItems([...pannelItems, newCardData]);
           setNewCardData("");
         }
         break;
     }
-    // TODO: Save new name
   };
 
   useEffect(() => {
@@ -136,7 +193,7 @@ const ProjectPannel = ({ id, name }: Props) => {
       </div>
       <div className="project-pannel-card-container" ref={pannelContainerRef}>
         {pannelItems.map((d) => (
-          <ListCard key={d} content={d} />
+          <ListCard key={d.id} content={d.title} />
         ))}
         {displayNewCard && (
           <textarea
@@ -144,7 +201,6 @@ const ProjectPannel = ({ id, name }: Props) => {
             className="project-new-card"
             value={newCardData}
             onChange={(e) => setNewCardData(e.target.value)}
-            onBlur={() => handleSave("new-card")}
             onKeyDown={(e) => {
               const key = e.keyCode || e.charCode;
               if (key === 13 && e.shiftKey === false) {

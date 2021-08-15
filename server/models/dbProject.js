@@ -41,6 +41,16 @@ projectSchema.post("save", async (newProject, next) => {
         return newPannel;
       })
     );
+    const pannelIDS = pannels.map((p) => p._id);
+    await mongoose.model("projects", projectSchema).findByIdAndUpdate(
+      newProject._id,
+      {
+        $push: { pannels: { $each: pannelIDS } },
+      },
+      {
+        new: true,
+      }
+    );
     newProject["pannels"] = pannels;
     next();
   } catch (error) {

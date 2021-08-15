@@ -31,6 +31,7 @@ export const typeDefs = gql`
     title: String!
     description: String
     position: Int
+    pannelID: ID
   }
 
   type Error {
@@ -51,6 +52,7 @@ export const typeDefs = gql`
     getProjects: [Project]
     getPannels: [Pannel]
     getProjectPannels(projectID: ID!): [Pannel]
+    getPannelItems(pannelID: ID!): [Item]
     getItems: [Item]
   }
 
@@ -64,7 +66,12 @@ export const typeDefs = gql`
     signUp(username: String!, email: String!, password: String!): Result
     addProject(title: String!, ownerID: ID!): Project
     addPannel(title: String!, position: Int!, projectID: ID!): Pannel
-    addItem(title: String!, description: String, position: Int): Item
+    addItem(
+      title: String!
+      description: String
+      position: Int!
+      pannelID: ID!
+    ): Item
 
     # Read
     login(username: String!, password: String!): Result

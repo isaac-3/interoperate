@@ -60,6 +60,16 @@ const Mutations = {
       }
     }
   `,
+  ADD_ITEM: gql`
+    mutation AddItem($title: String!, $position: Int!, $pannelID: ID!) {
+      addItem(title: $title, position: $position, pannelID: $pannelID) {
+        id
+        title
+        position
+        pannelID
+      }
+    }
+  `,
 };
 
 export const {
@@ -68,4 +78,5 @@ export const {
   ADD_PROJECT,
   DELETE_PANNEL,
   RENAME_PANNEL,
+  ADD_ITEM,
 } = Mutations;

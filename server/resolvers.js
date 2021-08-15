@@ -42,6 +42,12 @@ export const resolvers = {
       });
       return projectPannels;
     },
+    getPannelItems: async (_, { pannelID }) => {
+      const pannelItems = await Items.find({ pannelID: pannelID }).sort({
+        position: "asc",
+      });
+      return pannelItems;
+    },
     getItems: async () => await Items.find({}).exec(),
   },
   Mutation: {
