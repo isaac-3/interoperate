@@ -42,11 +42,22 @@ const QUERIES = {
       }
     }
   `,
+  GET_PANNEL_ITEMS: gql`
+    query ($pannelID: ID!) {
+      getPannelItems(pannelID: $pannelID) {
+        id
+        title
+        position
+        pannelID
+      }
+    }
+  `,
 };
 
 export const {
   GET_USER,
   GET_USERS,
   GET_PROJECTS,
-  GET_PROJECT_PANNELS
+  GET_PROJECT_PANNELS,
+  GET_PANNEL_ITEMS,
 } = QUERIES;

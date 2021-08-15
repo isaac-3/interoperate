@@ -9,11 +9,7 @@ const pannelSchema = new Schema(
       type: String,
       required: true,
     },
-    list: {
-      type: Array,
-      default: [],
-      required: true,
-    },
+    list: [{ type: ObjectId, ref: "items" }],
     position: {
       type: Number,
       required: true,

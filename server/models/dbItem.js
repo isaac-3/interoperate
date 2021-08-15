@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const { Schema } = mongoose;
+const { ObjectId } = mongoose.Schema.Types;
 
 const itemSchema = new Schema(
   {
@@ -15,6 +16,11 @@ const itemSchema = new Schema(
     position: {
       type: Number,
       required: true,
+    },
+    pannelID: {
+      type: ObjectId,
+      required: true,
+      ref: "pannels",
     },
   },
   {
