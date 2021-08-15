@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 const Mutations = {
   SIGN_UP: gql`
@@ -70,6 +70,16 @@ const Mutations = {
       }
     }
   `,
+  ADD_PANNEL: gql`
+    mutation AddPannel($title: String!, $position: Int!, $projectID: ID!) {
+      addPannel(title: $title, position: $position, projectID: $projectID) {
+        id
+        title
+        position
+        projectID
+      }
+    }
+  `,
 };
 
 export const {
@@ -79,4 +89,5 @@ export const {
   DELETE_PANNEL,
   RENAME_PANNEL,
   ADD_ITEM,
+  ADD_PANNEL,
 } = Mutations;
