@@ -10,7 +10,7 @@ import {
   DELETE_PANNEL,
   RENAME_PANNEL,
 } from '../../lib/GraphQL/Mutations';
-import { useMutation, gql, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_PANNEL_ITEMS } from '../../lib/GraphQL/Queries';
 
 interface Props {
@@ -33,7 +33,6 @@ const ProjectPannel = ({ id, name }: Props) => {
   const [displayMenu, setDisplayMenu] = useState(false);
   const [pannelTitle, setPannelTitle] = useState(name);
   const [displayNewCard, setDisplayNewCard] = useState(false);
-  const [pannelItems, setPannelItems] = useState<Item[]>([]);
   const [newCardData, setNewCardData] = useState("");
   const initialTitle = useRef<string>(name);
   const titleInputRed = useRef<HTMLInputElement>(null);
@@ -57,36 +56,20 @@ const ProjectPannel = ({ id, name }: Props) => {
 
   const [createItem] = useMutation(ADD_ITEM, {
     update(cache, { data: { addItem } }) {
-      cache.modify({
-        fields: {
-          getPannelItems(exsistingPannelItems = []) {
-            const newPannelItemsRef = cache.writeFragment({
-              data: addItem,
-              fragment: gql`
-                fragment NewItem on Item {
-                  id
-                  title
-                  position
-                  pannelID
-                }
-              `,
-            });
-            return [...exsistingPannelItems, newPannelItemsRef];
-          },
+      const data = cache.readQuery({
+        query: GET_PANNEL_ITEMS,
+        variables: { pannelID: id },
+      });
+      cache.writeQuery({
+        query: GET_PANNEL_ITEMS,
+        variables: { pannelID: id },
+        data: {
+          // @ts-ignore
+          getPannelItems: [...data.getPannelItems, addItem],
         },
       });
     },
   });
-
-  useEffect(() => {
-    if (getPannelItems) {
-      // Filters on cache update
-      const filteredItems = getPannelItems.filter(
-        (item) => item.pannelID === id
-      );
-      setPannelItems(filteredItems);
-    }
-  }, [getPannelItems]);
 
   useEffect(() => {
     if (pannelTitle !== name) {
@@ -137,15 +120,20 @@ const ProjectPannel = ({ id, name }: Props) => {
           createItem({
             variables: {
               title: newCardData,
-              position: pannelItems.length + 1,
+              // @ts-ignore
+              position: getPannelItems.length + 1,
               pannelID: id,
             },
           });
-          setDisplayNewCard(false);
-          setNewCardData("");
+          handleBlur();
         }
         break;
     }
+  };
+
+  const handleBlur = () => {
+    setDisplayNewCard(false);
+    setNewCardData("");
   };
 
   useEffect(() => {
@@ -192,7 +180,7 @@ const ProjectPannel = ({ id, name }: Props) => {
         )}
       </div>
       <div className="project-pannel-card-container" ref={pannelContainerRef}>
-        {pannelItems.map((d) => (
+        {getPannelItems?.map((d) => (
           <ListCard key={d.id} content={d.title} />
         ))}
         {displayNewCard && (
@@ -200,6 +188,7 @@ const ProjectPannel = ({ id, name }: Props) => {
             ref={newCardRef}
             className="project-new-card"
             value={newCardData}
+            onBlur={() => handleBlur()}
             onChange={(e) => setNewCardData(e.target.value)}
             onKeyDown={(e) => {
               const key = e.keyCode || e.charCode;

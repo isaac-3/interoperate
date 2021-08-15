@@ -60,6 +60,8 @@
     height: 94vh;
 	background-color: $backgroud;
     display: flex;
+    overflow-x: scroll;
+    @include scrollbar($nav);
 
     .project-pannel:first-child {
 		margin-left: 16px;
@@ -67,8 +69,9 @@
 }
 
 .project-pannel {
-    @include card-style($card-color, 250px, null);
+    @include card-style($card-color, null, null);
     @include card("regular");
+    min-width: 250px;
     height: fit-content;
     max-height: calc(100% - 34px);
     margin: 16px 8px 0 8px;
@@ -165,4 +168,30 @@
     .initial-icon {
         margin-right: 8px;
     }
+}
+
+.new-pannel-card {
+    @include card-theme("new");
+    @include card("regular");
+    height: 50px;
+    min-width: 250px;
+    margin: 16px 8px 0 8px;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+
+    div {
+        display: flex;
+        align-items: center;
+    }
+    
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.new-pannel-card-input {
+    @include input-style(90%, 30px);
+    @include outline($valid-color);
+    margin: 0 auto;
 }

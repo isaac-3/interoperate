@@ -39,6 +39,7 @@ const QUERIES = {
       getProjectPannels(projectID: $projectID) {
         id
         title
+        projectID
       }
     }
   `,

@@ -30,7 +30,11 @@ const NavBar = () => {
     <>
       {user.id ? (
         <div className="nav-bar-authed">
-          <HomeIcon className="nav-bar-icon" />
+          <HomeIcon className="nav-bar-icon"
+            onClick={() => {
+              router.push(`/${user.username}/projects`);
+            }}
+          />
           <h3>Interoperate</h3>
           <Avatar
             className="nav-bar-profile"
