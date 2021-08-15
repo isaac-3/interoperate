@@ -1,9 +1,10 @@
-import { useQuery } from "@apollo/client";
-import React, { useRef, useState, useEffect } from "react";
-import ProjectPannel from "../../components/project/ProjectPannel";
-import { GET_PROJECT_PANNELS } from "../../lib/GraphQL/Queries";
-import { NextPage } from "next";
-import AddIcon from "@material-ui/icons/Add";
+import { useMutation, useQuery, gql } from '@apollo/client';
+import React, { useRef, useState, useEffect } from 'react';
+import ProjectPannel from '../../components/project/ProjectPannel';
+import { GET_PROJECT_PANNELS } from '../../lib/GraphQL/Queries';
+import { NextPage } from 'next';
+import AddIcon from '@material-ui/icons/Add';
+import { ADD_PANNEL } from '../../lib/GraphQL/Mutations';
 
 interface Pannel {
   id: string;
@@ -28,8 +29,39 @@ const Project: NextPage<PageProps> = ({ projectID }) => {
     { variables: { projectID: projectID } }
   );
 
-  const handleSave = () => {
-    console.log(newPannelData);
+  const [createPannel] = useMutation(ADD_PANNEL, {
+    update(cache, { data: { addPannel } }) {
+      cache.modify({
+        fields: {
+          getProjectPannels(exsistingPannels = []) {
+            const newPannelRef = cache.writeFragment({
+              data: addPannel,
+              fragment: gql`
+                fragment NewPannel on Pannel {
+                  id
+                  title
+                  position
+                  projectID
+                }
+              `,
+            });
+            return [...exsistingPannels, newPannelRef];
+          },
+        },
+      });
+    },
+  });
+
+  const handleSave = async () => {
+    await createPannel({
+      variables: {
+        title: newPannelData,
+        // @ts-ignore
+        position: getProjectPannels.length + 1,
+        projectID: projectID,
+      },
+    });
+    handleBlur();
   };
 
   const handleBlur = () => {
