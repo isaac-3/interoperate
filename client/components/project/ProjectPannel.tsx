@@ -181,7 +181,7 @@ const ProjectPannel = ({ id, name }: Props) => {
       </div>
       <div className="project-pannel-card-container" ref={pannelContainerRef}>
         {getPannelItems?.map((d) => (
-          <ListCard key={d.id} content={d.title} />
+          <ListCard key={d.id} id={d.id} title={d.title} />
         ))}
         {displayNewCard && (
           <textarea

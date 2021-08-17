@@ -54,6 +54,7 @@ export const typeDefs = gql`
     getProjectPannels(projectID: ID!): [Pannel]
     getPannelItems(pannelID: ID!): [Item]
     getItems: [Item]
+    getItem(itemID: ID!): Item
   }
 
   input PannelUpdate {
