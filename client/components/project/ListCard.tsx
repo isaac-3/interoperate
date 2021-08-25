@@ -9,14 +9,15 @@ import {
 interface Props {
   id: string;
   title: string;
+  pannelTitle: string;
 }
 
-const ListCard = ({ id, title }: Props) => {
+const ListCard = ({ id, title, pannelTitle }: Props) => {
   const dispatch = useDispatch();
   return (
     <div className="project-pannel-card"
       onClick={() => {
-        dispatch(setModalProps(id));
+        dispatch(setModalProps({ itemID: id, pannelTitle: pannelTitle }));
         dispatch(setModalType("new-list-card"));
         dispatch(setModalDisplay());
       }}
