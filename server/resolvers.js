@@ -49,6 +49,10 @@ export const resolvers = {
       return pannelItems;
     },
     getItems: async () => await Items.find({}).exec(),
+    getItem: async (_, { itemID }) => {
+      const item = await Items.findById(itemID);
+      return item;
+    },
   },
   Mutation: {
     signUp: async (_, { username, email, password }, { req, res }) => {

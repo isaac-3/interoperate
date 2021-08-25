@@ -7,20 +7,22 @@ import {
 } from '../../lib/slices/modalSlice';
 
 interface Props {
-  content: string;
+  id: string;
+  title: string;
+  pannelTitle: string;
 }
 
-const ListCard = ({ content }: Props) => {
+const ListCard = ({ id, title, pannelTitle }: Props) => {
   const dispatch = useDispatch();
   return (
     <div className="project-pannel-card"
       onClick={() => {
-        dispatch(setModalProps(content));
+        dispatch(setModalProps({ itemID: id, pannelTitle: pannelTitle }));
         dispatch(setModalType("new-list-card"));
         dispatch(setModalDisplay());
       }}
     >
-      <p>{content}</p>
+      <p>{title}</p>
     </div>
   );
 };

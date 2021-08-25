@@ -53,6 +53,17 @@ const QUERIES = {
       }
     }
   `,
+  GET_ITEM: gql`
+    query ($itemID: ID!) {
+      getItem(itemID: $itemID) {
+        id
+        title
+        description
+        position
+        pannelID
+      }
+    }
+  `,
 };
 
 export const {
@@ -61,4 +72,5 @@ export const {
   GET_PROJECTS,
   GET_PROJECT_PANNELS,
   GET_PANNEL_ITEMS,
+  GET_ITEM,
 } = QUERIES;
