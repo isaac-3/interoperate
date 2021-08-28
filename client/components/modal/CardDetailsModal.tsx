@@ -24,11 +24,11 @@ type StringProp<T> = {
 }[keyof T];
 
 const initialState = {
-  id: "0",
-  title: "0",
-  description: "0",
+  id: "",
+  title: "",
+  description: "",
   position: 0,
-  pannelID: "0",
+  pannelID: "",
 } as Item;
 
 const CardDetailsModal = () => {
