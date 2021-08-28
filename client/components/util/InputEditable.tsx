@@ -4,19 +4,23 @@ interface Props {
   value: string;
   handleChange: (value: string) => void;
   handleUpdate: () => void;
+  outline: boolean;
   style?: object;
 }
 
 const InputEditable = ({
   value = "",
+  outline = true,
   handleUpdate,
   handleChange,
   style,
 }: Props) => {
-  const titleInputRef = useRef<HTMLInputElement>(null);
+  const titleInputRef = useRef<HTMLTextAreaElement>(null);
 
   return (
-    <input
+    <textarea
+      className="input-editable"
+      data-outline={outline}
       data-valid={value.length !== 0}
       ref={titleInputRef}
       value={value}

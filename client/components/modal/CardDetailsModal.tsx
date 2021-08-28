@@ -6,6 +6,7 @@ import DefocusWrapper from '../util/DefocusWrapper';
 import { useQuery } from '@apollo/client';
 import { GET_ITEM } from '../../lib/GraphQL/Queries';
 import InputEditable from '../util/InputEditable';
+import { StringProp } from '../../lib/typeHelpers';
 
 interface Item {
   id: string;
@@ -18,10 +19,6 @@ interface Item {
 interface ItemData {
   getItem: Item;
 }
-
-type StringProp<T> = {
-  [P in keyof T]: T[P] extends string ? P : never;
-}[keyof T];
 
 const initialState = {
   id: "",
@@ -86,6 +83,7 @@ const CardDetailsModal = () => {
           value={item.title}
           handleChange={(value) => handleUpdateItem("title", value)}
           handleUpdate={() => handleRename("title", initialTitle)}
+          outline
         />
       </div>
       <div className="modal-card-details-section">
@@ -98,6 +96,7 @@ const CardDetailsModal = () => {
           value={item.description}
           handleChange={(value) => handleUpdateItem("description", value)}
           handleUpdate={() => handleRename("description", initialDescription)}
+          outline
         />
       </div>
     </DefocusWrapper>
