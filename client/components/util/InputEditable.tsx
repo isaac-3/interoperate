@@ -1,21 +1,29 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface Props {
   value: string;
   handleChange: (value: string) => void;
   handleUpdate: () => void;
   outline: boolean;
+  focusInput?: boolean;
   style?: object;
 }
 
 const InputEditable = ({
   value = "",
-  outline = true,
   handleUpdate,
   handleChange,
+  outline = true,
+  focusInput,
   style,
 }: Props) => {
   const titleInputRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    if (focusInput !== null && focusInput) {
+      titleInputRef.current?.focus();
+    }
+  }, [focusInput]);
 
   return (
     <textarea
