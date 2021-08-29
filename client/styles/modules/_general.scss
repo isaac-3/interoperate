@@ -70,3 +70,30 @@
 		}
 	}
 }
+
+.input-editable {
+	@include input-style(null, auto);
+	background-color: transparent;
+	flex: 1;
+	font-size: 16px;
+	line-height: 16px;
+	margin: 8px;
+	padding: 0 2px;
+	cursor: pointer;
+	resize: none;
+
+	&[data-outline=true]  {
+		@include outline(lightgrey);
+	}
+
+	&:focus {
+		cursor: text;
+		background-color: $backgroud;
+		&[data-valid=false]  {
+			@include outline($error-color);
+		}
+		&[data-valid=true]  {
+			@include outline($valid-color);
+		}
+	}
+}

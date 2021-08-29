@@ -5,6 +5,8 @@ import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
 import DefocusWrapper from '../util/DefocusWrapper';
 import { useQuery } from '@apollo/client';
 import { GET_ITEM } from '../../lib/GraphQL/Queries';
+import InputEditable from '../util/InputEditable';
+import { StringProp } from '../../lib/typeHelpers';
 
 interface Item {
   id: string;
@@ -18,15 +20,23 @@ interface ItemData {
   getItem: Item;
 }
 
+const initialState = {
+  id: "",
+  title: "",
+  description: "",
+  position: 0,
+  pannelID: "",
+} as Item;
+
 const CardDetailsModal = () => {
   const dispatch = useDispatch();
-  const titleInputRef = useRef<HTMLInputElement>(null);
   const initialTitle = useRef<string>("");
+  const initialDescription = useRef<string>("");
 
   // @ts-ignore
   const { itemID, pannelTitle } = useSelector((state: RootState) => state.modal.modalProps);
 
-  const [item, setItem] = useState({} as Item);
+  const [item, setItem] = useState(initialState);
 
   const { loading, data: { getItem } = {} } = useQuery<ItemData>(GET_ITEM, {
     variables: { itemID },
@@ -36,13 +46,15 @@ const CardDetailsModal = () => {
     setItem({ ...item, [field]: newValue });
   };
 
-  const handleRename = () => {
-    titleInputRef.current?.blur();
-    if (item.title.trim().length === 0) {
-      handleUpdateItem("title", initialTitle.current);
-    } else if (item.title !== initialTitle.current) {
-      initialTitle.current = item.title;
-      // TODO: Rename/Update title
+  const handleRename = (
+    property: StringProp<Item>,
+    refObject: { current: string }
+  ) => {
+    if (item[property].trim().length === 0) {
+      handleUpdateItem(property, refObject.current);
+    } else if (item[property] !== refObject.current) {
+      refObject.current = item[property];
+      // TODO: Update property
       console.log("Ready to update!");
     }
   };
@@ -51,6 +63,7 @@ const CardDetailsModal = () => {
     if (getItem) {
       setItem(getItem);
       initialTitle.current = getItem.title;
+      initialDescription.current = getItem.description;
     }
   }, [getItem]);
 
@@ -66,18 +79,10 @@ const CardDetailsModal = () => {
     >
       <div className="modal-card-details-section">
         <h4>Item Title</h4>
-        <input
-          data-valid={item.title?.length !== 0}
-          ref={titleInputRef}
+        <InputEditable
           value={item.title}
-          onChange={(e) => handleUpdateItem("title", e.target.value)}
-          onBlur={() => handleRename()}
-          onKeyDown={(e) => {
-            const key = e.keyCode || e.charCode;
-            if (key === 13 && e.shiftKey === false) {
-              handleRename();
-            }
-          }}
+          handleChange={(value) => handleUpdateItem("title", value)}
+          handleUpdate={() => handleRename("title", initialTitle)}
         />
       </div>
       <div className="modal-card-details-section">
@@ -86,7 +91,11 @@ const CardDetailsModal = () => {
       </div>
       <div className="modal-card-details-section">
         <h4>Description</h4>
-        <span>{item.description}</span>
+        <InputEditable
+          value={item.description}
+          handleChange={(value) => handleUpdateItem("description", value)}
+          handleUpdate={() => handleRename("description", initialDescription)}
+        />
       </div>
     </DefocusWrapper>
   );

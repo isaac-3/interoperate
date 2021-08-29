@@ -12,6 +12,7 @@ import {
 } from '../../lib/GraphQL/Mutations';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_PANNEL_ITEMS } from '../../lib/GraphQL/Queries';
+import InputEditable from '../util/InputEditable';
 
 interface Props {
   id: string;
@@ -29,14 +30,16 @@ interface PannelItemsData {
   getPannelItems: Item[];
 }
 
+type InputHandle = React.ElementRef<typeof InputEditable>;
+
 const ProjectPannel = ({ id, name }: Props) => {
   const [displayMenu, setDisplayMenu] = useState(false);
   const [pannelTitle, setPannelTitle] = useState(name);
   const [displayNewCard, setDisplayNewCard] = useState(false);
   const [newCardData, setNewCardData] = useState("");
+  const titleInputRef = useRef<InputHandle>(null);
+  const newCardInputRef = useRef<InputHandle>(null);
   const initialTitle = useRef<string>(name);
-  const titleInputRed = useRef<HTMLInputElement>(null);
-  const newCardRef = useRef<HTMLTextAreaElement>(null);
   const pannelContainerRef = useRef<HTMLDivElement>(null);
 
   const { data: { getPannelItems } = {} } = useQuery<PannelItemsData>(
@@ -85,7 +88,7 @@ const ProjectPannel = ({ id, name }: Props) => {
         break;
       }
       case "Rename Column": {
-        titleInputRed.current?.focus();
+        titleInputRef.current?.focusInput();
         setDisplayMenu(false);
         break;
       }
@@ -99,7 +102,6 @@ const ProjectPannel = ({ id, name }: Props) => {
   const handleSave = (item: string) => {
     switch (item) {
       case "new-pannel-name":
-        titleInputRed.current?.blur();
         if (pannelTitle.trim().length === 0) {
           setPannelTitle(initialTitle.current);
         } else if (pannelTitle !== initialTitle.current) {
@@ -113,9 +115,8 @@ const ProjectPannel = ({ id, name }: Props) => {
         }
         break;
       case "new-card":
-        newCardRef.current?.blur();
         if (newCardData.trim().length === 0) {
-          setDisplayNewCard(false);
+          handleBlur();
         } else {
           createItem({
             variables: {
@@ -141,7 +142,7 @@ const ProjectPannel = ({ id, name }: Props) => {
       if (pannelContainerRef.current) {
         pannelContainerRef.current.scrollTop =
           pannelContainerRef.current.scrollHeight;
-        newCardRef.current?.focus();
+        newCardInputRef.current?.focusInput();
       }
     }
   }, [displayNewCard]);
@@ -149,18 +150,12 @@ const ProjectPannel = ({ id, name }: Props) => {
   return (
     <div className="project-pannel">
       <div className="project-pannel-title">
-        <input
-          data-valid={pannelTitle.length !== 0}
-          ref={titleInputRed}
+        <InputEditable
           value={pannelTitle}
-          onChange={(e) => setPannelTitle(e.target.value)}
-          onBlur={() => handleSave("new-pannel-name")}
-          onKeyDown={(e) => {
-            const key = e.keyCode || e.charCode;
-            if (key === 13 && e.shiftKey === false) {
-              handleSave("new-pannel-name");
-            }
-          }}
+          handleChange={(value) => setPannelTitle(value)}
+          handleUpdate={() => handleSave("new-pannel-name")}
+          outline={false}
+          ref={titleInputRef}
         />
         <MoreHorizRoundedIcon
           className="initial-icon"
@@ -184,18 +179,13 @@ const ProjectPannel = ({ id, name }: Props) => {
           <ListCard key={d.id} id={d.id} title={d.title} pannelTitle={name} />
         ))}
         {displayNewCard && (
-          <textarea
-            ref={newCardRef}
-            className="project-new-card"
+          <InputEditable
             value={newCardData}
-            onBlur={() => handleBlur()}
-            onChange={(e) => setNewCardData(e.target.value)}
-            onKeyDown={(e) => {
-              const key = e.keyCode || e.charCode;
-              if (key === 13 && e.shiftKey === false) {
-                handleSave("new-card");
-              }
-            }}
+            handleChange={(value) => setNewCardData(value)}
+            handleUpdate={() => handleSave("new-card")}
+            outline={false}
+            ref={newCardInputRef}
+            className="project-new-card"
           />
         )}
       </div>
