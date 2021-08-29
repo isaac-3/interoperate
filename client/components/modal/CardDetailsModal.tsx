@@ -83,7 +83,6 @@ const CardDetailsModal = () => {
           value={item.title}
           handleChange={(value) => handleUpdateItem("title", value)}
           handleUpdate={() => handleRename("title", initialTitle)}
-          outline
         />
       </div>
       <div className="modal-card-details-section">
@@ -96,7 +95,6 @@ const CardDetailsModal = () => {
           value={item.description}
           handleChange={(value) => handleUpdateItem("description", value)}
           handleUpdate={() => handleRename("description", initialDescription)}
-          outline
         />
       </div>
     </DefocusWrapper>
