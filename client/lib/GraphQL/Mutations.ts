@@ -1,85 +1,13 @@
-import { gql } from '@apollo/client';
+import { ItemMutations } from './typeActions/ItemActions';
+import { PannelMutations } from './typeActions/PannelActions';
+import { ProjectMutations } from './typeActions/ProjectActions';
+import { UserMutations } from './typeActions/UserActions';
 
-const Mutations = {
-  SIGN_UP: gql`
-    mutation SignUp($username: String!, $email: String!, $password: String!) {
-      signUp(username: $username, email: $email, password: $password) {
-        ... on User {
-          id
-          username
-          email
-          password
-        }
-        ... on Error {
-          message
-        }
-      }
-    }
-  `,
-  LOG_IN: gql`
-    mutation LogIn($username: String!, $password: String!) {
-      login(username: $username, password: $password) {
-        ... on User {
-          id
-          username
-          email
-          password
-        }
-        ... on Error {
-          message
-        }
-      }
-    }
-  `,
-  ADD_PROJECT: gql`
-    mutation AddProject($title: String!, $ownerID: ID!) {
-      addProject(title: $title, ownerID: $ownerID) {
-        id
-        title
-        ownerID
-      }
-    }
-  `,
-  DELETE_PANNEL: gql`
-    mutation DeletePannel($pannelID: ID!) {
-      deletePannel(pannelID: $pannelID) {
-        success
-        message
-      }
-    }
-  `,
-  RENAME_PANNEL: gql`
-    mutation RenamePannel($pannelID: ID!, $update: PannelUpdate) {
-      renamePannel(pannelID: $pannelID, update: $update) {
-        success
-        message
-        pannel {
-          id
-          title
-        }
-      }
-    }
-  `,
-  ADD_ITEM: gql`
-    mutation AddItem($title: String!, $position: Int!, $pannelID: ID!) {
-      addItem(title: $title, position: $position, pannelID: $pannelID) {
-        id
-        title
-        position
-        pannelID
-      }
-    }
-  `,
-  ADD_PANNEL: gql`
-    mutation AddPannel($title: String!, $position: Int!, $projectID: ID!) {
-      addPannel(title: $title, position: $position, projectID: $projectID) {
-        id
-        title
-        position
-        projectID
-      }
-    }
-  `,
+const MUTATIONS = {
+  ...UserMutations,
+  ...ProjectMutations,
+  ...PannelMutations,
+  ...ItemMutations,
 };
 
 export const {
@@ -88,6 +16,6 @@ export const {
   ADD_PROJECT,
   DELETE_PANNEL,
   RENAME_PANNEL,
-  ADD_ITEM,
   ADD_PANNEL,
-} = Mutations;
+  ADD_ITEM,
+} = MUTATIONS;
