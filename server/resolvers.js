@@ -142,5 +142,11 @@ export const resolvers = {
         };
       }
     },
+    updateItem: async (_, { itemID, update }) => {
+      const itemUpdate = await Items.findByIdAndUpdate(itemID, update, {
+        new: true,
+      });
+      return itemUpdate;
+    },
   },
 };

@@ -62,6 +62,13 @@ export const typeDefs = gql`
     position: Int
   }
 
+  input ItemUpdate {
+    title: String
+    description: String
+    position: Int
+    pannelID: ID
+  }
+
   type Mutation {
     # Create
     signUp(username: String!, email: String!, password: String!): Result
@@ -79,6 +86,7 @@ export const typeDefs = gql`
 
     # Update
     renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
+    updateItem(itemID: ID!, update: ItemUpdate): Item
 
     # Delete
     deletePannel(pannelID: ID!): ActionMessage

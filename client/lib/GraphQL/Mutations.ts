@@ -18,4 +18,5 @@ export const {
   RENAME_PANNEL,
   ADD_PANNEL,
   ADD_ITEM,
+  UPDATE_ITEM,
 } = MUTATIONS;
