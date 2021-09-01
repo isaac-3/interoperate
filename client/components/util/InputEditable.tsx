@@ -30,6 +30,9 @@ const InputEditable = forwardRef<InputHandle, InputProps>(
     useImperativeHandle(forwardedRef, () => ({
       focusInput: () => {
         titleInputRef.current?.focus();
+        if (titleInputRef.current)
+          titleInputRef.current.selectionStart =
+            titleInputRef.current.value.length;
       },
     }));
 
