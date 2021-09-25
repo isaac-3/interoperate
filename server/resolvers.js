@@ -31,6 +31,13 @@ export const resolvers = {
       return result;
     },
     getUsers: async () => await Users.find({}).exec(),
+    getProject: async (_, { projectID }) => {
+      const project = await Projects.findById(projectID).populate(
+        "owner",
+        "id username email"
+      );
+      return project;
+    },
     getProjects: async (_, args, { req, res }) => {
       const myProjects = await Projects.find({ ownerID: req.id });
       return myProjects;

@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const ProjectMutations = {
   ADD_PROJECT: gql`
@@ -13,6 +13,19 @@ export const ProjectMutations = {
 };
 
 export const ProjectQueries = {
+  GET_PROJECT: gql`
+    query ($projectID: ID!) {
+      getProject(projectID: $projectID) {
+        id
+        title
+        ownerID
+        owner {
+          id
+          username
+        }
+      }
+    }
+  `,
   GET_PROJECTS: gql`
     query {
       getProjects {

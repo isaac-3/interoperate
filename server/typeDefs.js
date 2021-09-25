@@ -49,6 +49,7 @@ export const typeDefs = gql`
   type Query {
     getUser: Result
     getUsers: [User]
+    getProject(projectID: ID!): Project
     getProjects: [Project]
     getPannels: [Pannel]
     getProjectPannels(projectID: ID!): [Pannel]

@@ -25,8 +25,17 @@ const projectSchema = new Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+projectSchema.virtual("owner", {
+  ref: "users",
+  localField: "ownerID",
+  foreignField: "_id",
+  justOne: true,
+});
 
 projectSchema.post("save", async (newProject, next) => {
   try {
