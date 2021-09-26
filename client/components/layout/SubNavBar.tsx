@@ -1,11 +1,12 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
+import { UPDATE_PROJECT } from "../../lib/GraphQL/Mutations";
 import { GET_PROJECT } from "../../lib/GraphQL/Queries";
 import InputEditable from "../util/InputEditable";
 import NavBarSeparator from "../util/NavBarSeparator ";
 
 interface Props {
-  projectID?: string;
+  projectID: string;
 }
 
 interface Project {
@@ -23,8 +24,6 @@ type InputHandle = React.ElementRef<typeof InputEditable>;
 
 const SubNavBar = ({ projectID }: Props) => {
   const [projectTitle, setProjectTitle] = useState("");
-  // @ts-ignore
-  // const [projectData, setProjectData] = useState<Project>({});
   const initialTitle = useRef<string>("");
   const titleInputRef = useRef<InputHandle>(null);
 
@@ -33,9 +32,10 @@ const SubNavBar = ({ projectID }: Props) => {
     { variables: { projectID: projectID } }
   );
 
+  const [renamePannel] = useMutation(UPDATE_PROJECT);
+
   useEffect(() => {
     if (getProject) {
-      // setProjectData(getProject);
       setProjectTitle(getProject["title"]);
       initialTitle.current = getProject["title"];
     }
@@ -46,7 +46,12 @@ const SubNavBar = ({ projectID }: Props) => {
       setProjectTitle(initialTitle.current);
     } else if (projectTitle !== initialTitle.current) {
       initialTitle.current = projectTitle;
-      console.log("Ready to update!");
+      renamePannel({
+        variables: {
+          projectID: projectID,
+          update: { title: projectTitle },
+        },
+      });
     }
   };
 

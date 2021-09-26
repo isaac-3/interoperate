@@ -10,6 +10,15 @@ export const ProjectMutations = {
       }
     }
   `,
+  UPDATE_PROJECT: gql`
+    mutation UpdateProject($projectID: ID!, $update: ProjectUpdate) {
+      updateProject(projectID: $projectID, update: $update) {
+        id
+        title
+        ownerID
+      }
+    }
+  `,
 };
 
 export const ProjectQueries = {

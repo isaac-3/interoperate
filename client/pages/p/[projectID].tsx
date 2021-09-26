@@ -75,7 +75,7 @@ const Project: NextPage<PageProps> = ({ projectID }) => {
 
   return (
     <>
-      <SubNavBar projectID={projectID} />
+      <SubNavBar projectID={projectID || ""} />
       <div className="project-page">
         {getProjectPannels?.map((pannel) => (
           <ProjectPannel key={pannel.id} id={pannel.id} name={pannel.title} />

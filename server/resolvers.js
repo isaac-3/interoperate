@@ -155,5 +155,15 @@ export const resolvers = {
       });
       return itemUpdate;
     },
+    updateProject: async (_, { projectID, update }) => {
+      const projectUpdate = await Projects.findByIdAndUpdate(
+        projectID,
+        update,
+        {
+          new: true,
+        }
+      );
+      return projectUpdate;
+    },
   },
 };
