@@ -49,6 +49,7 @@ export const typeDefs = gql`
   type Query {
     getUser: Result
     getUsers: [User]
+    getProject(projectID: ID!): Project
     getProjects: [Project]
     getPannels: [Pannel]
     getProjectPannels(projectID: ID!): [Pannel]
@@ -60,6 +61,18 @@ export const typeDefs = gql`
   input PannelUpdate {
     title: String
     position: Int
+  }
+
+  input ItemUpdate {
+    title: String
+    description: String
+    position: Int
+    pannelID: ID
+  }
+
+  input ProjectUpdate {
+    title: String
+    ownerID: ID
   }
 
   type Mutation {
@@ -79,6 +92,8 @@ export const typeDefs = gql`
 
     # Update
     renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
+    updateItem(itemID: ID!, update: ItemUpdate): Item
+    updateProject(projectID: ID!, update: ProjectUpdate): Project
 
     # Delete
     deletePannel(pannelID: ID!): ActionMessage

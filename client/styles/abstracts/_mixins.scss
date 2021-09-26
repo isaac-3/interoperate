@@ -1,103 +1,104 @@
 @use "sass:map";
-@use 'variables' as v;
+@use "variables" as v;
 
 @mixin card($shadow-weight) {
-    border-radius: 6px;
-    @if $shadow-weight != "none" {
-        box-shadow: map.get(v.$card-shadow, $shadow-weight);
-    }
-};
+  border-radius: 6px;
+  @if $shadow-weight != "none" {
+    box-shadow: map.get(v.$card-shadow, $shadow-weight);
+  }
+}
 
 @mixin button-theme($theme-color) {
-    @if $theme-color == "primary" {
-        background-color: map.get(v.$primary-button, "regular");
-        &:hover {
-            background-color: map.get(v.$primary-button, "hover");;
-        }
-    } @else if $theme-color == "action" {
-        background-color: map.get(v.$action-button, "regular");
-        &:hover {
-            background-color: map.get(v.$action-button, "hover");;
-        }
+  @if $theme-color == "primary" {
+    background-color: map.get(v.$primary-button, "regular");
+    &:hover {
+      background-color: map.get(v.$primary-button, "hover");
     }
+  } @else if $theme-color == "action" {
+    background-color: map.get(v.$action-button, "regular");
+    &:hover {
+      background-color: map.get(v.$action-button, "hover");
+    }
+  }
 }
 
 @mixin card-theme($theme-color) {
-    @if $theme-color == "new" {
-        background-color: map.get(v.$new-tile, "regular");
-        &:hover {
-            background-color: map.get(v.$new-tile, "hover");;
-        }
-    } @else if $theme-color == "card" {
-        background-color: map.get(v.$card-tile, "regular");
-        &:hover {
-            background-color: map.get(v.$card-tile, "hover");;
-        }
+  @if $theme-color == "new" {
+    background-color: map.get(v.$new-tile, "regular");
+    &:hover {
+      background-color: map.get(v.$new-tile, "hover");
     }
+  } @else if $theme-color == "card" {
+    background-color: map.get(v.$card-tile, "regular");
+    &:hover {
+      background-color: map.get(v.$card-tile, "hover");
+    }
+  }
 }
 
 @mixin card-style($color, $width, $height) {
-    background-color: $color;
-    width: $width;
-    height: $height;
-};
+  background-color: $color;
+  width: $width;
+  height: $height;
+}
 
-@mixin button ($width, $height, $theme-color) {
-    border-radius: 6px;
-    width: $width;
-    height: $height;
-    
-    &:hover {
-        cursor: pointer;
-    }
+@mixin button($width, $height, $theme-color) {
+  border-radius: 6px;
+  width: $width;
+  height: $height;
 
-    @include button-theme($theme-color)
+  &:hover {
+    cursor: pointer;
+  }
+
+  @include button-theme($theme-color);
 }
 
 @mixin centerInner {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
 @mixin outline($color) {
-    box-shadow: 0 0 0px 2px $color;
+  box-shadow: 0 0 0px 2px $color;
 }
 
 @mixin input-style($width, $height) {
-    width: $width;
-    height: $height;
-    border: none;
-    outline: none;
-    border-radius: 6px;
+  width: $width;
+  height: $height;
+  border: none;
+  outline: none;
+  border-radius: 6px;
 }
 
 @mixin center-vertically {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @mixin center-horizontally {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 @mixin scrollbar($color) {
-    &::-webkit-scrollbar {
-      background-color: rgba(0,0,0,0);
-      width: 8px;
-      height: 8px;
-    }
-  
-    &::-webkit-scrollbar-thumb {
-      background-color: $color;
-      border-radius: 12px;
-      background-clip: padding-box;
-      -webkit-box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
-    }
-  
-    &::-webkit-scrollbar-corner {
-      background: rgba(0,0,0,0.5);
-    }
+  &::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0);
+    width: 8px;
+    height: 8px;
   }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $color;
+    border-radius: 12px;
+    background-clip: padding-box;
+    -webkit-box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05),
+      inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}

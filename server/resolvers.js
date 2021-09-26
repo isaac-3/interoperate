@@ -31,6 +31,13 @@ export const resolvers = {
       return result;
     },
     getUsers: async () => await Users.find({}).exec(),
+    getProject: async (_, { projectID }) => {
+      const project = await Projects.findById(projectID).populate(
+        "owner",
+        "id username email"
+      );
+      return project;
+    },
     getProjects: async (_, args, { req, res }) => {
       const myProjects = await Projects.find({ ownerID: req.id });
       return myProjects;
@@ -141,6 +148,22 @@ export const resolvers = {
           pannel: { id: 0, title: "" },
         };
       }
+    },
+    updateItem: async (_, { itemID, update }) => {
+      const itemUpdate = await Items.findByIdAndUpdate(itemID, update, {
+        new: true,
+      });
+      return itemUpdate;
+    },
+    updateProject: async (_, { projectID, update }) => {
+      const projectUpdate = await Projects.findByIdAndUpdate(
+        projectID,
+        update,
+        {
+          new: true,
+        }
+      );
+      return projectUpdate;
     },
   },
 };

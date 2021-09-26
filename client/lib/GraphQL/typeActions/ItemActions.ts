@@ -11,6 +11,17 @@ export const ItemMutations = {
       }
     }
   `,
+  UPDATE_ITEM: gql`
+    mutation UpdateItem($itemID: ID!, $update: ItemUpdate) {
+      updateItem(itemID: $itemID, update: $update) {
+        id
+        title
+        description
+        position
+        pannelID
+      }
+    }
+  `,
 };
 
 export const ItemQueries = {
