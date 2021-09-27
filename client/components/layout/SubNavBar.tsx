@@ -4,9 +4,15 @@ import { UPDATE_PROJECT } from "../../lib/GraphQL/Mutations";
 import { GET_PROJECT } from "../../lib/GraphQL/Queries";
 import InputEditable from "../util/InputEditable";
 import NavBarSeparator from "../util/NavBarSeparator ";
+import UserAvatar from "../util/UserAvatar";
 
 interface Props {
   projectID: string;
+}
+
+interface Member {
+  id: string;
+  username: string;
 }
 
 interface Project {
@@ -14,6 +20,7 @@ interface Project {
   title: string;
   ownerID: string;
   owner: object;
+  members: Member[];
 }
 
 interface ProjectData {
@@ -66,6 +73,11 @@ const SubNavBar = ({ projectID }: Props) => {
         className="sub-nav-bar-input"
       />
       <NavBarSeparator />
+      <div className="nav-bar-members-container">
+        {getProject?.["members"].map((member, i) => (
+          <UserAvatar key={i} username={member["username"]} />
+        ))}
+      </div>
     </div>
   );
 };

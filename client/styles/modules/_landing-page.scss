@@ -95,3 +95,20 @@
   display: inline-block;
   margin: 4px;
 }
+
+.nav-bar-members-container {
+  display: flex;
+  margin: 0 8px;
+}
+
+.nav-bar-avatar {
+  margin-left: -6px;
+  box-shadow: map.get($card-shadow, "light");
+  background-color: map.get($primary-button, "regular") !important;
+
+  &:hover {
+    background-color: map.get($primary-button, "hover") !important;
+    z-index: 2;
+    cursor: pointer;
+  }
+}

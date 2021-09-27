@@ -17,11 +17,7 @@ const projectSchema = new Schema(
       required: true,
       ref: "users",
     },
-    members: {
-      type: Array,
-      default: [],
-      required: true,
-    },
+    members: [{ type: ObjectId, ref: "users" }],
   },
   {
     timestamps: true,

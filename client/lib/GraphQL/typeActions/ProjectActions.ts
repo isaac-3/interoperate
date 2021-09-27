@@ -32,6 +32,10 @@ export const ProjectQueries = {
           id
           username
         }
+        members {
+          id
+          username
+        }
       }
     }
   `,
