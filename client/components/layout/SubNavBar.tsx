@@ -1,7 +1,9 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { UPDATE_PROJECT } from "../../lib/GraphQL/Mutations";
 import { GET_PROJECT } from "../../lib/GraphQL/Queries";
+import { RootState } from "../../lib/rootReducer";
 import InputEditable from "../util/InputEditable";
 import NavBarSeparator from "../util/NavBarSeparator ";
 import UserAvatar from "../util/UserAvatar";
@@ -11,7 +13,7 @@ interface Props {
 }
 
 interface Member {
-  id: string;
+  id: number;
   username: string;
 }
 
@@ -30,6 +32,8 @@ interface ProjectData {
 type InputHandle = React.ElementRef<typeof InputEditable>;
 
 const SubNavBar = ({ projectID }: Props) => {
+  const user = useSelector((state: RootState) => state.user.user);
+
   const [projectTitle, setProjectTitle] = useState("");
   const initialTitle = useRef<string>("");
   const titleInputRef = useRef<InputHandle>(null);
@@ -75,7 +79,12 @@ const SubNavBar = ({ projectID }: Props) => {
       <NavBarSeparator />
       <div className="nav-bar-members-container">
         {getProject?.["members"].map((member, i) => (
-          <UserAvatar key={i} username={member["username"]} />
+          <UserAvatar
+            key={i}
+            username={member["username"]}
+            menuType="projectPage"
+            isUser={member["id"] === user["id"]}
+          />
         ))}
       </div>
     </div>
