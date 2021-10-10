@@ -95,3 +95,59 @@
   display: inline-block;
   margin: 4px;
 }
+
+.nav-bar-members-container {
+  display: flex;
+  margin: 0 8px;
+}
+
+.nav-bar-avatar {
+  margin-left: -6px;
+  box-shadow: map.get($card-shadow, "light");
+  background-color: map.get($primary-button, "regular") !important;
+  overflow: visible !important;
+
+  &[data-isuser=true] {
+    @include outline($nav);
+  }
+
+  &:hover {
+    background-color: map.get($primary-button, "hover") !important;
+    z-index: 2;
+    cursor: pointer;
+  }
+}
+
+.nav-bar-avatar-wrapper {
+  position: relative;
+  // z-index: 1;
+}
+
+.nav-bar-avatar-submenu {
+  @include card("regular");
+  overflow: hidden;
+  background-color: map.get($card-tile, "regular");
+  position: absolute;
+  min-width: 100px;
+  margin: 2px 0 0 0;
+
+  p {
+    color: $dark-text-color;
+    margin: 0;
+    width: 100%;
+    min-width: max-content;
+    padding: 4px 8px;
+
+    &:hover {
+      background-color: map.get($card-tile, "hover");
+      cursor: pointer;
+    }
+  }
+}
+
+.nav-bar-avatar-isUser {
+  color: $yellow-color;
+  position: absolute;
+  margin-top: 32px;
+  left: 20px;
+}

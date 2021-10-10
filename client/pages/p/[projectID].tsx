@@ -3,7 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import ProjectPannel from "../../components/project/ProjectPannel";
 import { GET_PROJECT_PANNELS } from "../../lib/GraphQL/Queries";
 import { NextPage } from "next";
-import AddIcon from "@material-ui/icons/Add";
+import AddIcon from "@mui/icons-material/Add";
 import { ADD_PANNEL } from "../../lib/GraphQL/Mutations";
 import SubNavBar from "../../components/layout/SubNavBar";
 

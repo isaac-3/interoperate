@@ -1,9 +1,9 @@
-import Users from "./models/dbUser.js";
-import Projects from "./models/dbProject.js";
-import Pannels from "./models/dbPannel.js";
-import Items from "./models/dbItem.js";
 import bcrypt from "bcryptjs";
 import pkg from "jsonwebtoken";
+import Items from "./models/dbItem.js";
+import Pannels from "./models/dbPannel.js";
+import Projects from "./models/dbProject.js";
+import Users from "./models/dbUser.js";
 
 const { sign } = pkg;
 
@@ -20,7 +20,7 @@ export const resolvers = {
     },
   },
   Query: {
-    getUser: async (_, args, { req, res }) => {
+    getUser: async (_, args, { req }) => {
       let result = {};
       const foundUser = await Users.findById(req.id);
       if (!foundUser) {
@@ -32,13 +32,12 @@ export const resolvers = {
     },
     getUsers: async () => await Users.find({}).exec(),
     getProject: async (_, { projectID }) => {
-      const project = await Projects.findById(projectID).populate(
-        "owner",
-        "id username email"
-      );
+      const project = await Projects.findById(projectID)
+        .populate("owner", "id username email")
+        .populate("members", "id  username");
       return project;
     },
-    getProjects: async (_, args, { req, res }) => {
+    getProjects: async (_, args, { req }) => {
       const myProjects = await Projects.find({ ownerID: req.id });
       return myProjects;
     },
@@ -62,7 +61,7 @@ export const resolvers = {
     },
   },
   Mutation: {
-    signUp: async (_, { username, email, password }, { req, res }) => {
+    signUp: async (_, { username, email, password }, { res }) => {
       let result = {};
       const foundUser = await Users.findOne({ email: email });
 
@@ -82,7 +81,7 @@ export const resolvers = {
       }
       return result;
     },
-    login: async (_, { username, password }, { req, res }) => {
+    login: async (_, { username, password }, { res }) => {
       let result = {};
       const foundUser = await Users.findOne({ username: username });
 

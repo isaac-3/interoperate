@@ -1,12 +1,12 @@
-import { useRouter } from 'next/router';
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../lib/rootReducer';
-import { setModalDisplay, setModalType } from '../../lib/slices/modalSlice';
-import HomeIcon from '@material-ui/icons/Home';
-import Avatar from '@material-ui/core/Avatar';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import { logOff } from '../../lib/slices/userSlice';
+import { useRouter } from "next/router";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../lib/rootReducer";
+import { setModalDisplay, setModalType } from "../../lib/slices/modalSlice";
+import HomeIcon from "@mui/icons-material/Home";
+import Avatar from "@mui/material/Avatar";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { logOff } from "../../lib/slices/userSlice";
 
 const diabledNavbarPaths = ["login", "signup"];
 
@@ -30,7 +30,8 @@ const NavBar = () => {
     <>
       {user.id ? (
         <div className="nav-bar-authed">
-          <HomeIcon className="nav-bar-icon"
+          <HomeIcon
+            className="nav-bar-icon"
             onClick={() => {
               router.push(`/${user.username}/projects`);
             }}
@@ -50,12 +51,14 @@ const NavBar = () => {
       ) : (
         <div className="nav-bar-unauthed">
           <h3>Interoperate</h3>
-          <div className="nav-bar-button"
+          <div
+            className="nav-bar-button"
             onClick={() => handlePromptType("login")}
           >
             Login
           </div>
-          <div className="nav-bar-button"
+          <div
+            className="nav-bar-button"
             onClick={() => handlePromptType("signup")}
           >
             Sign Up
