@@ -1,4 +1,4 @@
-import Avatar from "@material-ui/core/Avatar";
+import Avatar from "@mui/material/Avatar";
 import React, { useState } from "react";
 import DefocusWrapper from "./DefocusWrapper";
 
