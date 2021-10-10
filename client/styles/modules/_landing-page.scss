@@ -105,6 +105,11 @@
   margin-left: -6px;
   box-shadow: map.get($card-shadow, "light");
   background-color: map.get($primary-button, "regular") !important;
+  overflow: visible !important;
+
+  &[data-isuser=true] {
+    @include outline($nav);
+  }
 
   &:hover {
     background-color: map.get($primary-button, "hover") !important;
@@ -115,7 +120,7 @@
 
 .nav-bar-avatar-wrapper {
   position: relative;
-  z-index: 1;
+  // z-index: 1;
 }
 
 .nav-bar-avatar-submenu {
@@ -124,7 +129,7 @@
   background-color: map.get($card-tile, "regular");
   position: absolute;
   min-width: 100px;
-  margin: 4px 0 0 0;
+  margin: 2px 0 0 0;
 
   p {
     color: $dark-text-color;
@@ -138,4 +143,11 @@
       cursor: pointer;
     }
   }
+}
+
+.nav-bar-avatar-isUser {
+  color: $yellow-color;
+  position: absolute;
+  margin-top: 32px;
+  left: 20px;
 }

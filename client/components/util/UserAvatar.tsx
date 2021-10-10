@@ -1,7 +1,7 @@
 import Avatar from "@mui/material/Avatar";
 import React, { useState } from "react";
 import DefocusWrapper from "./DefocusWrapper";
-
+import StarRoundedIcon from "@mui/icons-material/StarRounded";
 interface Props {
   username: string;
   menuType: string;
@@ -26,8 +26,12 @@ const UserAvatar = ({ username, menuType, isUser }: Props) => {
         className="nav-bar-avatar"
         variant="circular"
         onClick={() => setDisplayMenu(!displayMenu)}
+        data-isuser={isUser}
       >
         {username.substring(0, 2)}
+        {isUser && (
+          <StarRoundedIcon fontSize="small" className="nav-bar-avatar-isUser" />
+        )}
       </Avatar>
       {displayMenu && (
         <DefocusWrapper

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'js-cookie';
+import apolloClient from '../../apolloClient';
 
 interface User {
   id: number | null;
@@ -28,6 +29,8 @@ const userSlice = createSlice({
       Cookies.remove("jwt_token");
       state.user.id = 0;
       state.user.username = "";
+      // Resets apollo cache
+      apolloClient.cache.reset()
     },
   },
 });
