@@ -1,6 +1,6 @@
 // import bcrypt from "bcryptjs";
 // import pkg from "jsonwebtoken";
-import Items from "./models/dbItem.js";
+// import Items from "./models/dbItem.js";
 // import Pannels from "./models/dbPannel.js";
 // import Projects from "./models/dbProject.js";
 // import Users from "./models/dbUser.js";
@@ -48,17 +48,17 @@ export const resolvers = {
     //   });
     //   return projectPannels;
     // },
-    getPannelItems: async (_, { pannelID }) => {
-      const pannelItems = await Items.find({ pannelID: pannelID }).sort({
-        position: "asc",
-      });
-      return pannelItems;
-    },
-    getItems: async () => await Items.find({}).exec(),
-    getItem: async (_, { itemID }) => {
-      const item = await Items.findById(itemID);
-      return item;
-    },
+    // getPannelItems: async (_, { pannelID }) => {
+    //   const pannelItems = await Items.find({ pannelID: pannelID }).sort({
+    //     position: "asc",
+    //   });
+    //   return pannelItems;
+    // },
+    // getItems: async () => await Items.find({}).exec(),
+    // getItem: async (_, { itemID }) => {
+    //   const item = await Items.findById(itemID);
+    //   return item;
+    // },
   },
   Mutation: {
     // signUp: async (_, { username, email, password }, { res }) => {
@@ -111,11 +111,11 @@ export const resolvers = {
     //   await pannel.save();
     //   return pannel;
     // },
-    addItem: async (_, args) => {
-      const item = new Items(args);
-      await item.save();
-      return item;
-    },
+    // addItem: async (_, args) => {
+    //   const item = new Items(args);
+    //   await item.save();
+    //   return item;
+    // },
     // deletePannel: async (_, { pannelID }) => {
     //   const myProjects = await Pannels.findByIdAndDelete(pannelID);
     //   if (myProjects) {
@@ -148,12 +148,12 @@ export const resolvers = {
     //     };
     //   }
     // },
-    updateItem: async (_, { itemID, update }) => {
-      const itemUpdate = await Items.findByIdAndUpdate(itemID, update, {
-        new: true,
-      });
-      return itemUpdate;
-    },
+    // updateItem: async (_, { itemID, update }) => {
+    //   const itemUpdate = await Items.findByIdAndUpdate(itemID, update, {
+    //     new: true,
+    //   });
+    //   return itemUpdate;
+    // },
     // updateProject: async (_, { projectID, update }) => {
     //   const projectUpdate = await Projects.findByIdAndUpdate(
     //     projectID,
