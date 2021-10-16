@@ -2,8 +2,8 @@
 // import pkg from "jsonwebtoken";
 import Items from "./models/dbItem.js";
 import Pannels from "./models/dbPannel.js";
-import Projects from "./models/dbProject.js";
-import Users from "./models/dbUser.js";
+// import Projects from "./models/dbProject.js";
+// import Users from "./models/dbUser.js";
 
 // const { sign } = pkg;
 
@@ -31,16 +31,16 @@ export const resolvers = {
     //   return result;
     // },
     // getUsers: async () => await Users.find({}).exec(),
-    getProject: async (_, { projectID }) => {
-      const project = await Projects.findById(projectID)
-        .populate("owner", "id username email")
-        .populate("members", "id  username");
-      return project;
-    },
-    getProjects: async (_, args, { req }) => {
-      const myProjects = await Projects.find({ ownerID: req.id });
-      return myProjects;
-    },
+    // getProject: async (_, { projectID }) => {
+    //   const project = await Projects.findById(projectID)
+    //     .populate("owner", "id username email")
+    //     .populate("members", "id  username");
+    //   return project;
+    // },
+    // getProjects: async (_, args, { req }) => {
+    //   const myProjects = await Projects.find({ ownerID: req.id });
+    //   return myProjects;
+    // },
     getPannels: async () => await Pannels.find({}).exec(),
     getProjectPannels: async (_, { projectID }) => {
       const projectPannels = await Pannels.find({ projectID: projectID }).sort({
@@ -99,13 +99,13 @@ export const resolvers = {
     //   }
     //   return result;
     // },
-    addProject: async (_, { title, ownerID }) => {
-      const project = new Projects({ title, ownerID });
-      await project.save();
-      const owner = await Users.findById(ownerID);
-      project["owner"] = owner;
-      return project;
-    },
+    // addProject: async (_, { title, ownerID }) => {
+    //   const project = new Projects({ title, ownerID });
+    //   await project.save();
+    //   const owner = await Users.findById(ownerID);
+    //   project["owner"] = owner;
+    //   return project;
+    // },
     addPannel: async (_, args) => {
       const pannel = new Pannels(args);
       await pannel.save();
@@ -154,15 +154,15 @@ export const resolvers = {
       });
       return itemUpdate;
     },
-    updateProject: async (_, { projectID, update }) => {
-      const projectUpdate = await Projects.findByIdAndUpdate(
-        projectID,
-        update,
-        {
-          new: true,
-        }
-      );
-      return projectUpdate;
-    },
+    // updateProject: async (_, { projectID, update }) => {
+    //   const projectUpdate = await Projects.findByIdAndUpdate(
+    //     projectID,
+    //     update,
+    //     {
+    //       new: true,
+    //     }
+    //   );
+    //   return projectUpdate;
+    // },
   },
 };
