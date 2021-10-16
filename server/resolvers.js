@@ -1,7 +1,7 @@
 // import bcrypt from "bcryptjs";
 // import pkg from "jsonwebtoken";
 import Items from "./models/dbItem.js";
-import Pannels from "./models/dbPannel.js";
+// import Pannels from "./models/dbPannel.js";
 // import Projects from "./models/dbProject.js";
 // import Users from "./models/dbUser.js";
 
@@ -41,13 +41,13 @@ export const resolvers = {
     //   const myProjects = await Projects.find({ ownerID: req.id });
     //   return myProjects;
     // },
-    getPannels: async () => await Pannels.find({}).exec(),
-    getProjectPannels: async (_, { projectID }) => {
-      const projectPannels = await Pannels.find({ projectID: projectID }).sort({
-        position: "asc",
-      });
-      return projectPannels;
-    },
+    // getPannels: async () => await Pannels.find({}).exec(),
+    // getProjectPannels: async (_, { projectID }) => {
+    //   const projectPannels = await Pannels.find({ projectID: projectID }).sort({
+    //     position: "asc",
+    //   });
+    //   return projectPannels;
+    // },
     getPannelItems: async (_, { pannelID }) => {
       const pannelItems = await Items.find({ pannelID: pannelID }).sort({
         position: "asc",
@@ -106,48 +106,48 @@ export const resolvers = {
     //   project["owner"] = owner;
     //   return project;
     // },
-    addPannel: async (_, args) => {
-      const pannel = new Pannels(args);
-      await pannel.save();
-      return pannel;
-    },
+    // addPannel: async (_, args) => {
+    //   const pannel = new Pannels(args);
+    //   await pannel.save();
+    //   return pannel;
+    // },
     addItem: async (_, args) => {
       const item = new Items(args);
       await item.save();
       return item;
     },
-    deletePannel: async (_, { pannelID }) => {
-      const myProjects = await Pannels.findByIdAndDelete(pannelID);
-      if (myProjects) {
-        return {
-          success: true,
-          message: "Successfully completed",
-        };
-      } else {
-        return {
-          success: false,
-          message: "An error occured",
-        };
-      }
-    },
-    renamePannel: async (_, { pannelID, update }) => {
-      const myProjects = await Pannels.findByIdAndUpdate(pannelID, update, {
-        new: true,
-      });
-      if (myProjects) {
-        return {
-          success: true,
-          message: "Successfully completed",
-          pannel: myProjects,
-        };
-      } else {
-        return {
-          success: false,
-          message: "An error occured",
-          pannel: { id: 0, title: "" },
-        };
-      }
-    },
+    // deletePannel: async (_, { pannelID }) => {
+    //   const myProjects = await Pannels.findByIdAndDelete(pannelID);
+    //   if (myProjects) {
+    //     return {
+    //       success: true,
+    //       message: "Successfully completed",
+    //     };
+    //   } else {
+    //     return {
+    //       success: false,
+    //       message: "An error occured",
+    //     };
+    //   }
+    // },
+    // renamePannel: async (_, { pannelID, update }) => {
+    //   const myProjects = await Pannels.findByIdAndUpdate(pannelID, update, {
+    //     new: true,
+    //   });
+    //   if (myProjects) {
+    //     return {
+    //       success: true,
+    //       message: "Successfully completed",
+    //       pannel: myProjects,
+    //     };
+    //   } else {
+    //     return {
+    //       success: false,
+    //       message: "An error occured",
+    //       pannel: { id: 0, title: "" },
+    //     };
+    //   }
+    // },
     updateItem: async (_, { itemID, update }) => {
       const itemUpdate = await Items.findByIdAndUpdate(itemID, update, {
         new: true,

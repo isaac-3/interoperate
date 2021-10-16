@@ -1,7 +1,7 @@
 import Projects from "../../../models/dbProject";
 import Users from "../../../models/dbUser";
 
-const userMutations: object = {
+const projectMutations: object = {
   addProject: async (_, { title, ownerID }) => {
     const project = new Projects({ title, ownerID });
     await project.save();
@@ -17,4 +17,4 @@ const userMutations: object = {
   },
 };
 
-export default userMutations;
+export default projectMutations;

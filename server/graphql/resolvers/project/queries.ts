@@ -1,6 +1,6 @@
 import Projects from "../../../models/dbProject";
 
-const projectMutations: object = {
+const projectQueries: object = {
   getProject: async (_, { projectID }) => {
     const project = await Projects.findById(projectID)
       .populate("owner", "id username email")
@@ -13,4 +13,4 @@ const projectMutations: object = {
   },
 };
 
-export default projectMutations;
+export default projectQueries;
