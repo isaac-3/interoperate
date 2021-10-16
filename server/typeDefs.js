@@ -2,12 +2,12 @@ import pkg from "apollo-server-express";
 const { gql } = pkg;
 
 export const typeDefs = gql`
-  type User {
-    id: ID!
-    username: String!
-    email: String!
-    password: String!
-  }
+  # type User {
+  #   id: ID!
+  #   username: String!
+  #   email: String!
+  #   password: String!
+  # }
 
   type Project {
     id: ID!
@@ -47,8 +47,8 @@ export const typeDefs = gql`
   union Result = User | Error
 
   type Query {
-    getUser: Result
-    getUsers: [User]
+    # getUser: Result
+    # getUsers: [User]
     getProject(projectID: ID!): Project
     getProjects: [Project]
     getPannels: [Pannel]
