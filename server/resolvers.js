@@ -1,11 +1,11 @@
-import bcrypt from "bcryptjs";
-import pkg from "jsonwebtoken";
+// import bcrypt from "bcryptjs";
+// import pkg from "jsonwebtoken";
 import Items from "./models/dbItem.js";
 import Pannels from "./models/dbPannel.js";
 import Projects from "./models/dbProject.js";
 import Users from "./models/dbUser.js";
 
-const { sign } = pkg;
+// const { sign } = pkg;
 
 export const resolvers = {
   Result: {
@@ -20,17 +20,17 @@ export const resolvers = {
     },
   },
   Query: {
-    getUser: async (_, args, { req }) => {
-      let result = {};
-      const foundUser = await Users.findById(req.id);
-      if (!foundUser) {
-        result = { message: "Please sign up or login" };
-      } else {
-        result = foundUser;
-      }
-      return result;
-    },
-    getUsers: async () => await Users.find({}).exec(),
+    // getUser: async (_, args, { req }) => {
+    //   let result = {};
+    //   const foundUser = await Users.findById(req.id);
+    //   if (!foundUser) {
+    //     result = { message: "Please sign up or login" };
+    //   } else {
+    //     result = foundUser;
+    //   }
+    //   return result;
+    // },
+    // getUsers: async () => await Users.find({}).exec(),
     getProject: async (_, { projectID }) => {
       const project = await Projects.findById(projectID)
         .populate("owner", "id username email")
@@ -61,44 +61,44 @@ export const resolvers = {
     },
   },
   Mutation: {
-    signUp: async (_, { username, email, password }, { res }) => {
-      let result = {};
-      const foundUser = await Users.findOne({ email: email });
+    // signUp: async (_, { username, email, password }, { res }) => {
+    //   let result = {};
+    //   const foundUser = await Users.findOne({ email: email });
 
-      if (foundUser) {
-        result = { message: "User already exisit with that email" };
-      } else {
-        const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new Users({
-          username,
-          email,
-          password: hashedPassword,
-        });
-        await user.save();
-        const token = sign({ id: user.id }, process.env.JWT_SECRET);
-        res.cookie("jwt_token", token);
-        result = user;
-      }
-      return result;
-    },
-    login: async (_, { username, password }, { res }) => {
-      let result = {};
-      const foundUser = await Users.findOne({ username: username });
+    //   if (foundUser) {
+    //     result = { message: "User already exisit with that email" };
+    //   } else {
+    //     const hashedPassword = await bcrypt.hash(password, 12);
+    //     const user = new Users({
+    //       username,
+    //       email,
+    //       password: hashedPassword,
+    //     });
+    //     await user.save();
+    //     const token = sign({ id: user.id }, process.env.JWT_SECRET);
+    //     res.cookie("jwt_token", token);
+    //     result = user;
+    //   }
+    //   return result;
+    // },
+    // login: async (_, { username, password }, { res }) => {
+    //   let result = {};
+    //   const foundUser = await Users.findOne({ username: username });
 
-      if (!foundUser) {
-        result = { message: "Invalid username or password" };
-      } else {
-        const isValid = await bcrypt.compare(password, foundUser.password);
-        if (!isValid) {
-          result = { message: "Invalid username or password" };
-        } else {
-          const token = sign({ id: foundUser.id }, process.env.JWT_SECRET);
-          res.cookie("jwt_token", token);
-          result = foundUser;
-        }
-      }
-      return result;
-    },
+    //   if (!foundUser) {
+    //     result = { message: "Invalid username or password" };
+    //   } else {
+    //     const isValid = await bcrypt.compare(password, foundUser.password);
+    //     if (!isValid) {
+    //       result = { message: "Invalid username or password" };
+    //     } else {
+    //       const token = sign({ id: foundUser.id }, process.env.JWT_SECRET);
+    //       res.cookie("jwt_token", token);
+    //       result = foundUser;
+    //     }
+    //   }
+    //   return result;
+    // },
     addProject: async (_, { title, ownerID }) => {
       const project = new Projects({ title, ownerID });
       await project.save();
