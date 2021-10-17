@@ -9,14 +9,14 @@ export const typeDefs = gql`
   #   password: String!
   # }
 
-  type Project {
-    id: ID!
-    title: String!
-    pannels: [Pannel]
-    ownerID: ID
-    members: [User]
-    owner: User
-  }
+  # type Project {
+  #   id: ID!
+  #   title: String!
+  #   pannels: [Pannel]
+  #   ownerID: ID
+  #   members: [User]
+  #   owner: User
+  # }
 
   type Pannel {
     id: ID!
@@ -49,11 +49,11 @@ export const typeDefs = gql`
   type Query {
     # getUser: Result
     # getUsers: [User]
-    getProject(projectID: ID!): Project
-    getProjects: [Project]
+    # getProject(projectID: ID!): Project
+    # getProjects: [Project]
     getPannels: [Pannel]
     getProjectPannels(projectID: ID!): [Pannel]
-    getPannelItems(pannelID: ID!): [Item]
+    # getPannelItems(pannelID: ID!): [Item]
     # getItems: [Item]
     # getItem(itemID: ID!): Item
   }
@@ -70,15 +70,15 @@ export const typeDefs = gql`
   #   pannelID: ID
   # }
 
-  input ProjectUpdate {
-    title: String
-    ownerID: ID
-  }
+  # input ProjectUpdate {
+  #   title: String
+  #   ownerID: ID
+  # }
 
   type Mutation {
     # Create
     # signUp(username: String!, email: String!, password: String!): Result
-    addProject(title: String!, ownerID: ID!): Project
+    # addProject(title: String!, ownerID: ID!): Project
     addPannel(title: String!, position: Int!, projectID: ID!): Pannel
     # addItem(
     #   title: String!
@@ -93,7 +93,7 @@ export const typeDefs = gql`
     # Update
     renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
     # updateItem(itemID: ID!, update: ItemUpdate): Item
-    updateProject(projectID: ID!, update: ProjectUpdate): Project
+    # updateProject(projectID: ID!, update: ProjectUpdate): Project
 
     # Delete
     deletePannel(pannelID: ID!): ActionMessage

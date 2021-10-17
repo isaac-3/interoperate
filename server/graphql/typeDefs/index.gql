@@ -12,12 +12,21 @@ type Query {
   # Items
   getItems: [Item]
   getItem(itemID: ID!): Item
+  getPannelItems(pannelID: ID!): [Item]
+
+  # Projects
+  getProject(projectID: ID!): Project
+  getProjects: [Project]
 }
 
 type Mutation {
   # Users
   signUp(username: String!, email: String!, password: String!): Result
   login(username: String!, password: String!): Result
+
+  # Projects
+  addProject(title: String!, ownerID: ID!): Project
+  updateProject(projectID: ID!, update: ProjectUpdate): Project
 
   # Items
   addItem(

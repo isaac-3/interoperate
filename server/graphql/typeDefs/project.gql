@@ -1,0 +1,18 @@
+# Types
+type Project implements Timestamps {
+  id: ID!
+  title: String!
+  pannels: [Pannel]
+  ownerID: ID
+  members: [User]
+  owner: User
+
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+# Inputs
+input ProjectUpdate {
+  title: String
+  ownerID: ID
+}
