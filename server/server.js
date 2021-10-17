@@ -19,11 +19,11 @@ mongoose.connection.once("open", () => console.log(`Connected to mongoDB`));
 
 const app = express();
 
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  context: ({ req, res }) => ({ req, res }),
-});
+// const server = new ApolloServer({
+//   typeDefs,
+//   resolvers,
+//   context: ({ req, res }) => ({ req, res }),
+// });
 
 const corsOptions = {
   origin: process.env.HOST,

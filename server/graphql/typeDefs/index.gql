@@ -1,3 +1,6 @@
+# Custom Scalars
+scalar Date
+
 type ActionMessage {
   success: Boolean
   message: String
