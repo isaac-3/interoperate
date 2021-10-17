@@ -18,13 +18,13 @@ export const typeDefs = gql`
   #   owner: User
   # }
 
-  type Pannel {
-    id: ID!
-    title: String!
-    list: [Item]
-    position: Int
-    projectID: ID
-  }
+  # type Pannel {
+  #   id: ID!
+  #   title: String!
+  #   list: [Item]
+  #   position: Int
+  #   projectID: ID
+  # }
 
   # type Item {
   #   id: ID!
@@ -38,11 +38,11 @@ export const typeDefs = gql`
   #   message: String!
   # }
 
-  type ActionMessage {
-    success: Boolean
-    message: String
-    pannel: Pannel
-  }
+  # type ActionMessage {
+  #   success: Boolean
+  #   message: String
+  #   pannel: Pannel
+  # }
 
   # union Result = User | Error
 
@@ -51,17 +51,17 @@ export const typeDefs = gql`
     # getUsers: [User]
     # getProject(projectID: ID!): Project
     # getProjects: [Project]
-    getPannels: [Pannel]
-    getProjectPannels(projectID: ID!): [Pannel]
+    # getPannels: [Pannel]
+    # getProjectPannels(projectID: ID!): [Pannel]
     # getPannelItems(pannelID: ID!): [Item]
     # getItems: [Item]
     # getItem(itemID: ID!): Item
   }
 
-  input PannelUpdate {
-    title: String
-    position: Int
-  }
+  # input PannelUpdate {
+  #   title: String
+  #   position: Int
+  # }
 
   # input ItemUpdate {
   #   title: String
@@ -79,7 +79,7 @@ export const typeDefs = gql`
     # Create
     # signUp(username: String!, email: String!, password: String!): Result
     # addProject(title: String!, ownerID: ID!): Project
-    addPannel(title: String!, position: Int!, projectID: ID!): Pannel
+    # addPannel(title: String!, position: Int!, projectID: ID!): Pannel
     # addItem(
     #   title: String!
     #   description: String
@@ -91,11 +91,11 @@ export const typeDefs = gql`
     # login(username: String!, password: String!): Result
 
     # Update
-    renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
+    # renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
     # updateItem(itemID: ID!, update: ItemUpdate): Item
     # updateProject(projectID: ID!, update: ProjectUpdate): Project
 
     # Delete
-    deletePannel(pannelID: ID!): ActionMessage
+    # deletePannel(pannelID: ID!): ActionMessage
   }
 `;

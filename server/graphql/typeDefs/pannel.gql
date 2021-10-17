@@ -1,0 +1,17 @@
+# Types
+type Pannel implements Timestamps {
+  id: ID!
+  title: String!
+  list: [Item]
+  position: Int
+  projectID: ID
+
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+# Inputs
+input PannelUpdate {
+  title: String
+  position: Int
+}

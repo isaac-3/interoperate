@@ -1,3 +1,9 @@
+type ActionMessage {
+  success: Boolean
+  message: String
+  pannel: Pannel
+}
+
 type Error {
   message: String!
 }
@@ -9,14 +15,18 @@ type Query {
   getUser: User
   getUsers: [User]
 
+  # Projects
+  getProject(projectID: ID!): Project
+  getProjects: [Project]
+
+  # Pannels
+  getPannels: [Pannel]
+  getProjectPannels(projectID: ID!): [Pannel]
+
   # Items
   getItems: [Item]
   getItem(itemID: ID!): Item
   getPannelItems(pannelID: ID!): [Item]
-
-  # Projects
-  getProject(projectID: ID!): Project
-  getProjects: [Project]
 }
 
 type Mutation {
@@ -27,6 +37,11 @@ type Mutation {
   # Projects
   addProject(title: String!, ownerID: ID!): Project
   updateProject(projectID: ID!, update: ProjectUpdate): Project
+
+  # Pannels
+  addPannel(title: String!, position: Int!, projectID: ID!): Pannel
+  renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
+  deletePannel(pannelID: ID!): ActionMessage
 
   # Items
   addItem(
