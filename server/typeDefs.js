@@ -26,17 +26,17 @@ export const typeDefs = gql`
     projectID: ID
   }
 
-  type Item {
-    id: ID!
-    title: String!
-    description: String
-    position: Int
-    pannelID: ID
-  }
+  # type Item {
+  #   id: ID!
+  #   title: String!
+  #   description: String
+  #   position: Int
+  #   pannelID: ID
+  # }
 
-  type Error {
-    message: String!
-  }
+  # type Error {
+  #   message: String!
+  # }
 
   type ActionMessage {
     success: Boolean
@@ -44,7 +44,7 @@ export const typeDefs = gql`
     pannel: Pannel
   }
 
-  union Result = User | Error
+  # union Result = User | Error
 
   type Query {
     # getUser: Result
@@ -54,8 +54,8 @@ export const typeDefs = gql`
     getPannels: [Pannel]
     getProjectPannels(projectID: ID!): [Pannel]
     getPannelItems(pannelID: ID!): [Item]
-    getItems: [Item]
-    getItem(itemID: ID!): Item
+    # getItems: [Item]
+    # getItem(itemID: ID!): Item
   }
 
   input PannelUpdate {
@@ -63,12 +63,12 @@ export const typeDefs = gql`
     position: Int
   }
 
-  input ItemUpdate {
-    title: String
-    description: String
-    position: Int
-    pannelID: ID
-  }
+  # input ItemUpdate {
+  #   title: String
+  #   description: String
+  #   position: Int
+  #   pannelID: ID
+  # }
 
   input ProjectUpdate {
     title: String
@@ -77,22 +77,22 @@ export const typeDefs = gql`
 
   type Mutation {
     # Create
-    signUp(username: String!, email: String!, password: String!): Result
+    # signUp(username: String!, email: String!, password: String!): Result
     addProject(title: String!, ownerID: ID!): Project
     addPannel(title: String!, position: Int!, projectID: ID!): Pannel
-    addItem(
-      title: String!
-      description: String
-      position: Int!
-      pannelID: ID!
-    ): Item
+    # addItem(
+    #   title: String!
+    #   description: String
+    #   position: Int!
+    #   pannelID: ID!
+    # ): Item
 
     # Read
-    login(username: String!, password: String!): Result
+    # login(username: String!, password: String!): Result
 
     # Update
     renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
-    updateItem(itemID: ID!, update: ItemUpdate): Item
+    # updateItem(itemID: ID!, update: ItemUpdate): Item
     updateProject(projectID: ID!, update: ProjectUpdate): Project
 
     # Delete

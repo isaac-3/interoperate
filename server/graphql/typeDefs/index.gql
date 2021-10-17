@@ -1,0 +1,30 @@
+type Error {
+  message: String!
+}
+
+union Result = User | Error
+
+type Query {
+  # Users
+  getUser: User
+  getUsers: [User]
+
+  # Items
+  getItems: [Item]
+  getItem(itemID: ID!): Item
+}
+
+type Mutation {
+  # Users
+  signUp(username: String!, email: String!, password: String!): Result
+  login(username: String!, password: String!): Result
+
+  # Items
+  addItem(
+    title: String!
+    description: String
+    position: Int!
+    pannelID: ID!
+  ): Item
+  updateItem(itemID: ID!, update: ItemUpdate): Item
+}
