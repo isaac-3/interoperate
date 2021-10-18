@@ -1,4 +1,4 @@
-import Pannels from "../../../models/dbPannel.js";
+import Pannels from "../../../db/models/dbPannel.js";
 
 const pannelQueries = {
   getPannels: async () => await Pannels.find({}).exec(),

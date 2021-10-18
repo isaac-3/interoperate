@@ -1,5 +1,5 @@
-import Projects from "../../../models/dbProject.js";
-import Users from "../../../models/dbUser.js";
+import Projects from "../../../db/models/dbProject.js";
+import Users from "../../../db/models/dbUser.js";
 
 const projectMutations = {
   addProject: async (_, { title, ownerID }) => {

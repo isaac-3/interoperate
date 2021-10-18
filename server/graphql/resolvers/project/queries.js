@@ -1,4 +1,4 @@
-import Projects from "../../../models/dbProject.js";
+import Projects from "../../../db/models/dbProject.js";
 
 const projectQueries = {
   getProject: async (_, { projectID }) => {

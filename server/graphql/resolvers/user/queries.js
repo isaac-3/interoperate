@@ -1,4 +1,4 @@
-import Users from "../../../models/dbUser.js";
+import Users from "../../../db/models/dbUser.js";
 
 const userQueries = {
   getUser: async (_, args, { req }) => {

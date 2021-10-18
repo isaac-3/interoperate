@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import pkg from "jsonwebtoken";
-import Users from "../../../models/dbUser.js";
+import Users from "../../../db/models/dbUser.js";
 
 const { sign } = pkg;
 

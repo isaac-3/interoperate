@@ -1,4 +1,4 @@
-import Items from "../../../models/dbItem.js";
+import Items from "../../../db/models/dbItem.js";
 
 const itemlMutations = {
   addItem: async (_, args) => {
