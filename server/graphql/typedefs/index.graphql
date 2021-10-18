@@ -1,0 +1,57 @@
+# Custom Scalars
+scalar Date
+
+type ActionMessage {
+  success: Boolean
+  message: String
+  pannel: Pannel
+}
+
+type Error {
+  message: String!
+}
+
+union Result = User | Error
+
+type Query {
+  # Users
+  getUser: User
+  getUsers: [User]
+
+  # Projects
+  getProject(projectID: ID!): Project
+  getProjects: [Project]
+
+  # Pannels
+  getPannels: [Pannel]
+  getProjectPannels(projectID: ID!): [Pannel]
+
+  # Items
+  getItems: [Item]
+  getItem(itemID: ID!): Item
+  getPannelItems(pannelID: ID!): [Item]
+}
+
+type Mutation {
+  # Users
+  signUp(username: String!, email: String!, password: String!): Result
+  login(username: String!, password: String!): Result
+
+  # Projects
+  addProject(title: String!, ownerID: ID!): Project
+  updateProject(projectID: ID!, update: ProjectUpdate): Project
+
+  # Pannels
+  addPannel(title: String!, position: Int!, projectID: ID!): Pannel
+  renamePannel(pannelID: ID!, update: PannelUpdate): ActionMessage
+  deletePannel(pannelID: ID!): ActionMessage
+
+  # Items
+  addItem(
+    title: String!
+    description: String
+    position: Int!
+    pannelID: ID!
+  ): Item
+  updateItem(itemID: ID!, update: ItemUpdate): Item
+}

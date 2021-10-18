@@ -1,0 +1,19 @@
+# Types
+type Item implements Timestamps {
+  id: ID!
+  title: String!
+  description: String
+  position: Int
+  pannelID: ID
+
+  createdAt: Date!
+  updatedAt: Date!
+}
+
+# Inputs
+input ItemUpdate {
+  title: String
+  description: String
+  position: Int
+  pannelID: ID
+}
