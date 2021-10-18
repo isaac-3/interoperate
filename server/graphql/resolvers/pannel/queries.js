@@ -1,6 +1,6 @@
-import Pannels from "../../../models/dbPannel";
+import Pannels from "../../../models/dbPannel.js";
 
-const pannelQueries: object = {
+const pannelQueries = {
   getPannels: async () => await Pannels.find({}).exec(),
   getProjectPannels: async (_, { projectID }) => {
     const projectPannels = await Pannels.find({ projectID: projectID }).sort({

@@ -1,7 +1,6 @@
-import bcrypt from "bcryptjs";
-import Users from "../../../models/dbUser";
+import Users from "../../../models/dbUser.js";
 
-const userQueries: object = {
+const userQueries = {
   getUser: async (_, args, { req }) => {
     let result = {};
     const foundUser = await Users.findById(req.id);

@@ -1,6 +1,6 @@
-import Items from "../../../models/dbItem";
+import Items from "../../../models/dbItem.js";
 
-const itemQueries: object = {
+const itemQueries = {
   getPannelItems: async (_, { pannelID }) => {
     const pannelItems = await Items.find({ pannelID: pannelID }).sort({
       position: "asc",

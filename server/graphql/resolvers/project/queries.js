@@ -1,6 +1,6 @@
-import Projects from "../../../models/dbProject";
+import Projects from "../../../models/dbProject.js";
 
-const projectQueries: object = {
+const projectQueries = {
   getProject: async (_, { projectID }) => {
     const project = await Projects.findById(projectID)
       .populate("owner", "id username email")

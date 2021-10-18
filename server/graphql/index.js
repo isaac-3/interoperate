@@ -1,9 +1,12 @@
 import pkg from "apollo-server-express";
-import schema from "./schema.js";
+import { typeDefs } from "../typeDefs.js";
+import resolvers from "./resolvers/index.js";
+
 const { ApolloServer } = pkg;
 
 const server = new ApolloServer({
-  schema: schema,
+  resolvers,
+  typeDefs,
   context: ({ req, res }) => ({ req, res }),
 });
 

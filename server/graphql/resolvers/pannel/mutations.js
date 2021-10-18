@@ -1,6 +1,6 @@
-import Pannels from "../../../models/dbPannel";
+import Pannels from "../../../models/dbPannel.js";
 
-const pannelMutations: object = {
+const pannelMutations = {
   addPannel: async (_, args) => {
     const pannel = new Pannels(args);
     await pannel.save();

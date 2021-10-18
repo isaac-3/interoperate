@@ -1,6 +1,6 @@
-import Items from "../../../models/dbItem";
+import Items from "../../../models/dbItem.js";
 
-const itemlMutations: object = {
+const itemlMutations = {
   addItem: async (_, args) => {
     const item = new Items(args);
     await item.save();

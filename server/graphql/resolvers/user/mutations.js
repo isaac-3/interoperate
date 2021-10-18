@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
 import pkg from "jsonwebtoken";
-import Users from "../../../models/dbUser";
+import Users from "../../../models/dbUser.js";
 
 const { sign } = pkg;
 
-const userMutations: object = {
+const userMutations = {
   signUp: async (_, { username, email, password }, { res }) => {
     let result = {};
     const foundUser = await Users.findOne({ email: email });
