@@ -15,7 +15,7 @@ union Result = User | Error
 
 type Query {
   # Users
-  getUser: User
+  getUser: Result
   getUsers: [User]
 
   # Projects
