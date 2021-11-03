@@ -8,7 +8,7 @@ const { makeExecutableSchema } = pkg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const gqlFiles = readdirSync(join(__dirname, "./typedefs/"));
+const gqlFiles = readdirSync(join(__dirname, "./typedefs"));
 
 let typeDefs = "";
 

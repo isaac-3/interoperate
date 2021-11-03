@@ -1,6 +1,6 @@
 import cookieParser from "cookie-parser";
 import express from "express";
-import authMiddleware from "./authMiddleware.js";
+import authMiddleware from "./middleware/authMiddleware.js";
 import server from "./graphql/index.js";
 
 const corsOptions = {
